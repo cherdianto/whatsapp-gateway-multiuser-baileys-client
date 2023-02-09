@@ -5,7 +5,9 @@ import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import withRouter from '../../Components/Common/withRouter';
+
 
 // Formik validation
 import * as Yup from "yup";
@@ -28,7 +30,7 @@ import { facebook, google } from "../../config";
 const Login = (props) => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => ({
-        user: state.Account.user,
+        user: state.Account.user || '',
     }));
 
     const [userLogin, setUserLogin] = useState([]);

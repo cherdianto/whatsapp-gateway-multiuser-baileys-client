@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import { setAuthorization } from "../helpers/api_helper";
 import { useDispatch } from "react-redux";
 
@@ -19,12 +19,12 @@ const AuthProtected = (props) => {
   }, [token, userProfile, loading, dispatch]);
 
   /*
-    redirect is un-auth access protected routes via url
+    Navigate is un-auth access protected routes via url
     */
 
   if (!userProfile && loading && !token) {
     return (
-      <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+      <Navigate to={{ pathname: "/login", state: { from: props.location } }} />
     );
   }
 

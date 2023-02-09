@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import withRouter from '../../Components/Common/withRouter';
+
 
 // #LOGOUT
 // import { logoutUser } from "../../store/actions";
@@ -20,7 +22,7 @@ const Logout = (props) => {
   }, [dispatch]);
 
   if (isUserLogout) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   return <></>;

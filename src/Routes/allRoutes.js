@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 //Dashboard
 import DashboardEcommerce from "../pages/DashboardEcommerce";
@@ -17,33 +17,33 @@ import Error404 from "../pages/Escape/error404";
 
 const authProtectedRoutes = [
   
-  { path: "/dashboard", component: DashboardEcommerce },
-  { path: "/index", component: DashboardEcommerce },
+  { path: "/dashboard", component: <DashboardEcommerce/> },
+  { path: "/index", component: <DashboardEcommerce/> },
 
   //User Profile
-  { path: "/profile", component: UserProfile },
+  { path: "/profile", component: <UserProfile/> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   {
     path: "/",
     exact: true,
-    component: () => <Redirect to="/dashboard" />,
+    component: <Navigate to="/dashboard" />
   },
-  { path: "*", component: Error404}
+  { path: "*", component: <Error404 />}
 ];
 
 const publicRoutes = [
   // Authentication Page
-  { path: "/logout", component: Logout },
-  { path: "/login", component: Login },
-  { path: "/forgot-password", component: ForgetPasswordPage },
-  { path: "/register", component: Register },
+  { path: "/logout", component: <Logout/> },
+  { path: "/login", component: <Login/> },
+  { path: "/forgot-password", component: <ForgetPasswordPage/> },
+  { path: "/register", component: <Register/> },
 ];
 
 const escapeRoutes = [
   // Authentication Page
-  { path: "/", component: Register, exact: false },
+  { path: "/", component: <Register/>, exact: false },
 ];
 
 export { authProtectedRoutes, publicRoutes, escapeRoutes };

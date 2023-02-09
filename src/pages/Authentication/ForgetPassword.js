@@ -5,7 +5,9 @@ import { Row, Col, Alert, Card, CardBody, Container, FormFeedback, Input, Label,
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import withRouter from '../../Components/Common/withRouter';
+
 
 // Formik Validation
 import * as Yup from "yup";

@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { UserProvider } from './context/user.context';
+import { QueryClient, QueryClientProvider } from 'react-query';
 //import Scss
 import './assets/scss/themes.scss';
 
@@ -28,11 +29,17 @@ fakeBackend();
 
 // init firebase backend
 // initFirebaseBackend(firebaseConfig);
+const queryClient = new QueryClient()
 
-function App() {
+
+function App(props) {
   return (
     <React.Fragment>
-      <Route />
+      <UserProvider initialUser={props?.user}>
+        <QueryClientProvider client={queryClient}>
+          <Route />
+        </QueryClientProvider>
+      </UserProvider>
     </React.Fragment>
   );
 }
