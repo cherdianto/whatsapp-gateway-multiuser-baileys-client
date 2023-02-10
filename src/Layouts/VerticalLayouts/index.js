@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
-import withRouter from '../../Components/Common/withRouter';
-
 import { Collapse } from 'reactstrap';
+
 // Import Data
 import navdata from "../LayoutMenuData";
 //i18n
 import { withTranslation } from "react-i18next";
+import withRouter from '../../Components/Common/withRouter';
 
 const VerticalLayout = (props) => {
     const navData = navdata().props.children;
+    const path = props.router.location.pathname;
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         const initMenu = () => {
-            const pathName = process.env.PUBLIC_URL + props.location.pathname;
+            const pathName = process.env.PUBLIC_URL + path;
             const ul = document.getElementById("navbar-nav");
             const items = ul.getElementsByTagName("a");
             let itemsArray = [...items]; // converts NodeList to Array
@@ -30,7 +31,7 @@ const VerticalLayout = (props) => {
         if (props.layoutType === "vertical") {
             initMenu();
         }
-    }, [props.location.pathname, props.layoutType]);
+    }, [path, props.layoutType]);
 
     function activateParentDropdown(item) {
         item.classList.add("active");
@@ -99,7 +100,7 @@ const VerticalLayout = (props) => {
                                             <span data-key="t-apps">{props.t(item.label)}</span>
                                             {item.badgeName ?
                                                 <span className={"badge badge-pill bg-" + item.badgeColor} data-key="t-new">{item.badgeName}</span>
-                                                : null}
+                                            : null}
                                         </Link>
                                         <Collapse
                                             className="menu-dropdown"
@@ -118,7 +119,7 @@ const VerticalLayout = (props) => {
                                                                     {props.t(subItem.label)}
                                                                     {subItem.badgeName ?
                                                                         <span className={"badge badge-pill bg-" + subItem.badgeColor} data-key="t-new">{subItem.badgeName}</span>
-                                                                        : null}
+                                                                    : null}
                                                                 </Link>
                                                             </li>
                                                         ) : (
@@ -128,7 +129,11 @@ const VerticalLayout = (props) => {
                                                                     className="nav-link"
                                                                     to="/#"
                                                                     data-bs-toggle="collapse"
-                                                                > {props.t(subItem.label)}
+                                                                > 
+                                                                {props.t(subItem.label)}
+                                                                {subItem.badgeName ?
+                                                                    <span className={"badge badge-pill bg-" + subItem.badgeColor} data-key="t-new">{subItem.badgeName}</span>
+                                                                : null}
                                                                 </Link>
                                                                 <Collapse className="menu-dropdown" isOpen={subItem.stateVariables} id="sidebarEcommerce">
                                                                     <ul className="nav nav-sm flex-column">
@@ -146,7 +151,7 @@ const VerticalLayout = (props) => {
                                                                                         </li>
                                                                                         : <li className="nav-item">
                                                                                             <Link to="/#" className="nav-link" onClick={childItem.click} data-bs-toggle="collapse">
-                                                                                            {props.t(childItem.label)}
+                                                                                                {props.t(childItem.label)}
                                                                                             </Link>
                                                                                             <Collapse className="menu-dropdown" isOpen={childItem.stateVariables} id="sidebaremailTemplates">
                                                                                                 <ul className="nav nav-sm flex-column">

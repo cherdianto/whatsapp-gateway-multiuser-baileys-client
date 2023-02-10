@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, CardBody, Card, Alert, Container, Input, Label, Form, FormFeedback, Button } from "reactstrap";
 
 // Formik Validation
@@ -20,58 +20,96 @@ import { Link, useNavigate } from "react-router-dom";
 //import images 
 import logoLight from "../../assets/images/logo-light.png";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
+import axios from 'axios'
+import { registerUser } from "../../apiQuery/user.query";
+
+const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 
 const Register = () => {
     const history = useNavigate();
     const dispatch = useDispatch();
+    const [error, setError] = useState(null)
+    const [success, setSuccess] = useState(null)
+
 
     const validation = useFormik({
         // enableReinitialize : use this flag when initial values needs to be changed
         enableReinitialize: true,
 
         initialValues: {
+            nama: '',
             email: '',
-            first_name: '',
+            nim: '',
+            whatsapp: '',
             password: '',
-            confirm_password: ''
+            confirmPassword: ''
         },
         validationSchema: Yup.object({
-            email: Yup.string().required("Please Enter Your Email"),
-            first_name: Yup.string().required("Please Enter Your Username"),
-            password: Yup.string().required("Please Enter Your Password"),
-            confirm_password: Yup.string().when("password", {
-                is: val => (val && val.length > 0 ? true : false),
-                then: Yup.string().oneOf(
-                    [Yup.ref("password")],
-                    "Confirm Password Isn't Match"
-                )
-            })
+            nama: Yup.string().required("Masukkan nama lengkap"),
+            email: Yup.string().required("Masukkan email Anda"),
+            nim: Yup.number().required("Masukkan NIM?NIK"),
+            whatsapp: Yup.number().required("Masukkan whatsapp"),
+            password: Yup.string().required("Masukkan password"),
+            confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Password harus sama')
         }),
-        onSubmit: (values) => {
-            // dispatch(registerUser(values));
+        onSubmit: async (values, { resetForm }) => {
+            const formData = {
+                email : values.email,
+                password : values.password,
+                confirmPassword : values.confirmPassword,
+                whatsapp: values.whatsapp,
+                nim: values.nim,
+                nama: values.nama,
+            }
+
+            try {
+                const res = await registerUser(formData)
+                // console.log(res.user)
+                // setUser(res.user)
+                setError(null)
+                setSuccess(true)
+            } catch (error) {
+                console.log('error disni')
+                console.log(error)
+                setSuccess(false)
+                // if (error.response.status === 429) {
+                //     // rate limiter error
+                //     setError({
+                //         status: true,
+                //         message: error.response?.data
+                //     })
+                // } else {
+                    // other errors
+                    setError({
+                        status: true,
+                        message: error.response?.message || 'FAILED'
+                    })
+                // }
+            }
+            resetForm({ values: '' })
         }
     });
 
-    const { error, registrationError, success } = useSelector(state => ({
-        registrationError: state.Account.registrationError,
-        success: state.Account.success,
-        error: state.Account.error
-    }));
+    // const { error, registrationError, success } = useSelector(state => ({
+    //     registrationError: state.Account.registrationError,
+    //     success: state.Account.success,
+    //     error: state.Account.error
+    // }));
 
-    useEffect(() => {
-        // dispatch(apiError(""));
-    }, [dispatch]);
+    // useEffect(() => {
+    //     // dispatch(apiError(""));
+    // }, [dispatch]);
 
-    useEffect(() => {
-        if (success) {
-            setTimeout(() => history.push("login"), 3000);
-        }
+    // useEffect(() => {
+    //     if (success) {
+    //         setTimeout(() => history.push("login"), 3000);
+    //     }
 
-        setTimeout(() => {
-            // dispatch(resetRegisterFlag());
-        }, 3000);
+    //     setTimeout(() => {
+    //         // dispatch(resetRegisterFlag());
+    //     }, 3000);
 
-    }, [dispatch, success, error, history]);
+    // }, [dispatch, success, error, history]);
 
     document.title = "Basic SignUp | Velzon - React Admin & Dashboard Template";
 
@@ -124,11 +162,48 @@ const Register = () => {
                                                 {error && error ? (
                                                     <Alert color="danger"><div>
                                                         {/* {registrationError} */}
-                                                        Email has been Register Before, Please Use Another Email Address... </div></Alert>
+                                                        {error?.message}</div></Alert>
                                                 ) : null}
-
                                                 <div className="mb-3">
-                                                    <Label htmlFor="useremail" className="form-label">Email <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="nama" className="form-label">Nama Lengkap <span className="text-danger">*</span></Label>
+                                                    <Input
+                                                        name="nama"
+                                                        type="text"
+                                                        placeholder="Enter Nama"
+                                                        onChange={validation.handleChange}
+                                                        onBlur={validation.handleBlur}
+                                                        value={validation.values.nama || ""}
+                                                        invalid={
+                                                            validation.touched.nama && validation.errors.nama ? true : false
+                                                        }
+                                                    />
+                                                    {validation.touched.nama && validation.errors.nama ? (
+                                                        <FormFeedback type="invalid"><div>{validation.errors.nama}</div></FormFeedback>
+                                                    ) : null}
+
+                                                </div>
+                                                <div className="mb-3">
+                                                    <Label htmlFor="usernim" className="form-label">NIM/NIK <span className="text-danger">*</span></Label>
+                                                    <Input
+                                                        id="nim"
+                                                        name="nim"
+                                                        className="form-control"
+                                                        placeholder="Enter nim address"
+                                                        type="number"
+                                                        onChange={validation.handleChange}
+                                                        onBlur={validation.handleBlur}
+                                                        value={validation.values.nim || ""}
+                                                        invalid={
+                                                            validation.touched.nim && validation.errors.nim ? true : false
+                                                        }
+                                                    />
+                                                    {validation.touched.nim && validation.errors.nim ? (
+                                                        <FormFeedback type="invalid"><div>{validation.errors.nim}</div></FormFeedback>
+                                                    ) : null}
+
+                                                </div>
+                                                <div className="mb-3">
+                                                    <Label htmlFor="email" className="form-label">Email <span className="text-danger">*</span></Label>
                                                     <Input
                                                         id="email"
                                                         name="email"
@@ -147,24 +222,28 @@ const Register = () => {
                                                     ) : null}
 
                                                 </div>
+
                                                 <div className="mb-3">
-                                                    <Label htmlFor="username" className="form-label">Username <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="userwhatsapp" className="form-label">Whatsapp <span className="text-danger">*</span></Label>
                                                     <Input
-                                                        name="first_name"
-                                                        type="text"
-                                                        placeholder="Enter username"
+                                                        id="whatsapp"
+                                                        name="whatsapp"
+                                                        className="form-control"
+                                                        placeholder="Enter whatsapp"
+                                                        type="number"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
-                                                        value={validation.values.first_name || ""}
+                                                        value={validation.values.whatsapp || ""}
                                                         invalid={
-                                                            validation.touched.first_name && validation.errors.first_name ? true : false
+                                                            validation.touched.whatsapp && validation.errors.whatsapp ? true : false
                                                         }
                                                     />
-                                                    {validation.touched.first_name && validation.errors.first_name ? (
-                                                        <FormFeedback type="invalid"><div>{validation.errors.first_name}</div></FormFeedback>
+                                                    {validation.touched.whatsapp && validation.errors.whatsapp ? (
+                                                        <FormFeedback type="invalid"><div>{validation.errors.whatsapp}</div></FormFeedback>
                                                     ) : null}
 
                                                 </div>
+                                                
 
                                                 <div className="mb-3">
                                                     <Label htmlFor="userpassword" className="form-label">Password <span className="text-danger">*</span></Label>
@@ -188,18 +267,18 @@ const Register = () => {
                                                 <div className="mb-2">
                                                     <Label htmlFor="confirmPassword" className="form-label">Confirm Password <span className="text-danger">*</span></Label>
                                                     <Input
-                                                        name="confirm_password"
+                                                        name="confirmPassword"
                                                         type="password"
                                                         placeholder="Confirm Password"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
-                                                        value={validation.values.confirm_password || ""}
+                                                        value={validation.values.confirmPassword || ""}
                                                         invalid={
-                                                            validation.touched.confirm_password && validation.errors.confirm_password ? true : false
+                                                            validation.touched.confirmPassword && validation.errors.confirmPassword ? true : false
                                                         }
                                                     />
-                                                    {validation.touched.confirm_password && validation.errors.confirm_password ? (
-                                                        <FormFeedback type="invalid"><div>{validation.errors.confirm_password}</div></FormFeedback>
+                                                    {validation.touched.confirmPassword && validation.errors.confirmPassword ? (
+                                                        <FormFeedback type="invalid"><div>{validation.errors.confirmPassword}</div></FormFeedback>
                                                     ) : null}
 
                                                 </div>
@@ -213,7 +292,7 @@ const Register = () => {
                                                     <button className="btn btn-success w-100" type="submit">Sign Up</button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
+                                                {/* <div className="mt-4 text-center">
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title text-muted">Create account with</h5>
                                                     </div>
@@ -224,7 +303,7 @@ const Register = () => {
                                                         <button type="button" className="btn btn-dark btn-icon waves-effect waves-light"><i className="ri-github-fill fs-16"></i></button>{" "}
                                                         <button type="button" className="btn btn-info btn-icon waves-effect waves-light"><i className="ri-twitter-fill fs-16"></i></button>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>

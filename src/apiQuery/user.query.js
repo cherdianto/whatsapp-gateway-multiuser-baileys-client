@@ -42,3 +42,14 @@ export const logoutUser = async () => {
         throw new Error(error)
     }
 }
+
+export const registerUser = async (formData) => {
+    try {
+        const response = await axios.post(`${apiUrl}/auth/register`, formData)
+        console.log(response)
+        return response
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
+}

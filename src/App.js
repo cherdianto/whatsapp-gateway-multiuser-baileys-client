@@ -1,5 +1,4 @@
 import React from 'react';
-import { UserProvider } from './context/user.context';
 import { QueryClient, QueryClientProvider } from 'react-query';
 //import Scss
 import './assets/scss/themes.scss';
@@ -35,11 +34,9 @@ const queryClient = new QueryClient()
 function App(props) {
   return (
     <React.Fragment>
-      <UserProvider initialUser={props?.user}>
         <QueryClientProvider client={queryClient}>
           <Route />
         </QueryClientProvider>
-      </UserProvider>
     </React.Fragment>
   );
 }

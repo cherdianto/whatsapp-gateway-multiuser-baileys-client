@@ -1,28 +1,50 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route } from "react-router-dom";
 import { setAuthorization } from "../helpers/api_helper";
-import { useDispatch } from "react-redux";
-
+// import { useDispatch } from "react-redux";
+import { useUser } from "../context/user.context";
+import useAuth from "../hooks/useAuth";
+import Loader from '../Components/Common/Loader'
 import { useProfile } from "../Components/Hooks/UserHooks";
 // #LOGOUT
 // import { logoutUser } from "../store/actions";
 
 const AuthProtected = (props) => {
-  const dispatch = useDispatch();
-  const { userProfile, loading, token } = useProfile();
-  useEffect(() => {
-    if (userProfile && !loading && token) {
-      setAuthorization(token);
-    } else if (!userProfile && loading && !token) {
-      // dispatch(logoutUser());
+  // const dispatch = useDispatch();
+  const {currentUser, isLoading, isError} = useAuth({ redirect: 'login'})
+  const { user, setUser } = useUser(currentUser)
+  // const { userProfile, loading, token } = useProfile();
+  const [loading, setloading] = useState(false)
+
+  useEffect(()=> {
+    if(!currentUser && !isLoading && !isError){
+      console.log('lagi loading nih')
+      setloading(true)
+    } else {
+      setloading(false)
     }
-  }, [token, userProfile, loading, dispatch]);
+  },[isLoading, currentUser, isError, useAuth])
+  // useEffect(() => {
+  //   if (userProfile && !loading && token) {
+  //     setAuthorization(token);
+  //   } else if (!userProfile && loading && !token) {
+  //     dispatch(logoutUser());
+  //   }
+  // }, [token, userProfile, loading]);
 
-  /*
-    Navigate is un-auth access protected routes via url
-    */
+  // useEffect(()=> {
+  //   if(!currentUser && isLoading && isError){
+  //     console.log('logout disini')
+  //   }
+  // },[currentUser, isLoading, isError])
+  if(loading){
+    return (
+      <Loader />
+    )
+  }
 
-  if (!userProfile && loading && !token) {
+  if (!currentUser && isError && !isLoading) {
+    console.log('redirect to login')
     return (
       <Navigate to={{ pathname: "/login", state: { from: props.location } }} />
     );

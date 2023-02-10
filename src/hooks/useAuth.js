@@ -3,40 +3,43 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from '../apiQuery/user.query.js'
 
-const useAuthNew = ({ redirect }) => {
+const useAuth = ({ redirect }) => {
     const [currentUser, setCurrentUser] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
     // const [loading, setLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
     const { user, setUser } = useUser()
-    const { push } = useNavigate()
+    const navigate = useNavigate()
 
     const getUser = async () => {
-        // setLoading(true)
-        console.log('useAuthNew get user')
+        setIsLoading(true)
+        console.log('useAuth get user')
         try {
             const res = await fetchUser(user?.accessToken)
+            console.log(res)
             setCurrentUser(res)
+            setIsError(false)
             setUser(res)
+            setIsLoading(false)
         } catch (error) {
+            console.log('error get user')
+            console.log(error)
             setUser()
+            setIsError(true)
             setCurrentUser(null)
-            if (redirect !== null) {
-                push(`/${redirect}`)
-            }
+            setIsLoading(false)
+            // if (redirect !== null) {
+            //     navigate(`/${redirect}`)
+            // }
         }
-        // setLoading(false)
     }
 
     useEffect(() => {
+        console.log('use effect useAuth')
         if (!user) getUser()
-    }, [])
+    }, [user])
 
-    // if (loading) {
-    //     return <>
-    //         <h2>loading...</h2>
-    //     </>
-    // }
-
-    return currentUser
+    return {currentUser, isLoading, isError}
 }
 
-export default useAuthNew
+export default useAuth

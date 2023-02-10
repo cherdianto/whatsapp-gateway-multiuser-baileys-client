@@ -6,8 +6,8 @@ export function useUser() {
     return useContext(UserContextImpl)
 }
 
-export const UserProvider = ({ children, initialUser }) => {
-    const [user, setUser] = useState(initialUser)
+export const UserProvider = ({ children}) => {
+    const [user, setUser] = useState()
 
     return <UserContextImpl.Provider value={{ user, setUser}}>
         {children}

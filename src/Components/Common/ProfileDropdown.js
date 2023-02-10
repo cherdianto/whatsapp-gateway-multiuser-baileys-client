@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-
+import { useUser } from '../../context/user.context';
 //import images
 import avatar1 from "../../assets/images/users/avatar-1.jpg";
 
 const ProfileDropdown = () => {
+    const { user, setUser } = useUser()
 
     // const { user } = useSelector(state => ({
     //     user: state.Profile.user,
     // }));
-    const user = {
-        userName : 'candra herdianto'
-    }
+    // const user = {
+    //     userName : 'candra herdianto'
+    // }
 
     const [userName, setUserName] = useState("Admin");
 
-    useEffect(() => {
-        if (sessionStorage.getItem("authUser")) {
-            const obj = JSON.parse(sessionStorage.getItem("authUser"));
-            setUserName(user.first_name || obj.data.first_name || "Admin");
-        }
-    }, [userName, user]);
+    // useEffect(() => {
+    //     if (sessionStorage.getItem("authUser")) {
+    //         const obj = JSON.parse(sessionStorage.getItem("authUser"));
+    //         setUserName(user.first_name || obj.data.first_name || "Admin");
+    //     }
+    // }, [userName, user]);
 
     //Dropdown Toggle
     const [isProfileDropdown, setIsProfileDropdown] = useState(false);
@@ -43,10 +44,10 @@ const ProfileDropdown = () => {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-menu-end">
 
-                    <h6 className="dropdown-header">Welcome {userName}!</h6>
+                    <h6 className="dropdown-header">Welcome {user?.nama}!</h6>
                     <DropdownItem href="/profile"><i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                         <span className="align-middle">Profile</span></DropdownItem>
-                    <DropdownItem href="#"><i
+                    {/* <DropdownItem href="#"><i
                         className="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span
                             className="align-middle">Messages</span></DropdownItem>
                     <DropdownItem href="#"><i
@@ -54,15 +55,13 @@ const ProfileDropdown = () => {
                             className="align-middle">Taskboard</span></DropdownItem>
                     <DropdownItem href="#"><i
                         className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span
-                            className="align-middle">Help</span></DropdownItem>
+                            className="align-middle">Help</span></DropdownItem> */}
                     <div className="dropdown-divider"></div>
-                    <DropdownItem href="#"><i
-                        className="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span
-                            className="align-middle">Balance : <b>$5971.67</b></span></DropdownItem>
-                    <DropdownItem href="#"><span
+
+                    {/* <DropdownItem href="#"><span
                         className="badge bg-soft-success text-success mt-1 float-end">New</span><i
                             className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span
-                                className="align-middle">Settings</span></DropdownItem>
+                                className="align-middle">Settings</span></DropdownItem> */}
                     <DropdownItem href="#"><i
                         className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Lock screen</span></DropdownItem>
                     <DropdownItem href="/logout"><i

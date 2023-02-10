@@ -3,20 +3,20 @@ import { Card, CardBody, Col, Container, Input, Label, Row, Button, Form, FormFe
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import withRouter from '../../Components/Common/withRouter';
 
 
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
+import axios from 'axios'
 //Social Media Imports
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 // import TwitterLogin from "react-twitter-auth"
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 // #LOGIN
 // actions
@@ -24,23 +24,30 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 
 import logoLight from "../../assets/images/logo-light.png";
 //Import config
-import { facebook, google } from "../../config";
+// import { facebook, google } from "../../config";
+import { useUser } from '../../context/user.context';
 //import images
+const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 
 const Login = (props) => {
-    const dispatch = useDispatch();
-    const { user } = useSelector(state => ({
-        user: state.Account.user || '',
-    }));
+    const [error, setError] = useState(null)
+    const { user, setUser } = useUser()
+    const navigate = useNavigate()
+    // const dispatch = useDispatch();
+    // const { user } = useSelector(state => ({
+    //     user: state?.Account?.user || '',
+    // }));
 
-    const [userLogin, setUserLogin] = useState([]);
+    // const [userLogin, setUserLogin] = useState([]);
 
     useEffect(() => {
         if (user && user) {
-            setUserLogin({
-                email: user.user.email,
-                password: user.user.confirm_password
-            });
+            // setUserLogin({
+            //     email: user?.user.email,
+            //     password: user?.user.confirm_password
+            // });
+            navigate('/dashboard')
+            console.log('logged in')
         }
     }, [user]);
 
@@ -49,61 +56,87 @@ const Login = (props) => {
         enableReinitialize: true,
 
         initialValues: {
-            email: userLogin.email || "admin@themesbrand.com" || '',
-            password: userLogin.password || "123456" || '',
+            email: 'user1@email.com',
+            password: 'password'
         },
         validationSchema: Yup.object({
-            email: Yup.string().required("Please Enter Your Email"),
-            password: Yup.string().required("Please Enter Your Password"),
+            email: Yup.string().required("Masukkan Alamat Email Anda"),
+            password: Yup.string().required("Masukkan Password Anda"),
         }),
-        onSubmit: (values) => {
-            // dispatch(loginUser(values, props.history));
+        onSubmit: async (values) => {
+            const cred = {
+                email : values.email,
+                password : values.password
+            }
+
+            try {
+                const res = await axios.post(`${apiUrl}/auth/login`, cred)
+                console.log(res.user)
+                setUser(res.user)
+                setError(null)
+            } catch (error) {
+                if (error.response.status === 429) {
+                    // rate limiter error
+                    setError({
+                        status: true,
+                        message: error.response.data
+                    })
+                } else {
+                    // other errors
+                    setError({
+                        status: true,
+                        message: 'LOGIN FAILED'
+                        // message: error.response.data.message || 'GAGAL LOGIN'
+                    })
+                }
+            }
+
         }
     });
 
-    const { error } = useSelector(state => ({
-        error: state.Login.error,
-    }));
+    // const { error } = useSelector(state => ({
+    //     error: state.Login.error,
+    // }));
 
 
-    const signIn = (res, type) => {
-        if (type === "google" && res) {
-            const postData = {
-                name: res.profileObj.name,
-                email: res.profileObj.email,
-                token: res.tokenObj.access_token,
-                idToken: res.tokenId,
-            };
-            // dispatch(socialLogin(postData, props.history, type));
-        } else if (type === "facebook" && res) {
-            const postData = {
-                name: res.name,
-                email: res.email,
-                token: res.accessToken,
-                idToken: res.tokenId,
-            };
-            // dispatch(socialLogin(postData, props.history, type));
-        }
-    };
+    // const signIn = (res, type) => {
+    //     if (type === "google" && res) {
+    //         const postData = {
+    //             name: res.profileObj.name,
+    //             email: res.profileObj.email,
+    //             token: res.tokenObj.access_token,
+    //             idToken: res.tokenId,
+    //         };
+    //         // dispatch(socialLogin(postData, props.history, type));
+    //     } else if (type === "facebook" && res) {
+    //         const postData = {
+    //             name: res.name,
+    //             email: res.email,
+    //             token: res.accessToken,
+    //             idToken: res.tokenId,
+    //         };
+    //         // dispatch(socialLogin(postData, props.history, type));
+    //     }
+    // };
 
     //handleGoogleLoginResponse
-    const googleResponse = response => {
-        signIn(response, "google");
-    };
+    // const googleResponse = response => {
+    //     signIn(response, "google");
+    // };
 
     //handleTwitterLoginResponse
     // const twitterResponse = e => {}
 
     //handleFacebookLoginResponse
-    const facebookResponse = response => {
-        signIn(response, "facebook");
-    };
+    // const facebookResponse = response => {
+    //     signIn(response, "facebook");
+    // };
 
-    useEffect(() => {
-        setTimeout(() => {
+    // useEffect(() => {
+    //     setTimeout(() => {
             // dispatch(resetLoginFlag());
-        }, 3000);
-    }, [dispatch, error]);
+    //     }, 3000);
+    // }, [dispatch, error]);
 
     document.title = "Basic SignIn | Velzon - React Admin & Dashboard Template";
     return (
@@ -132,7 +165,7 @@ const Login = (props) => {
                                             <h5 className="text-primary">Welcome Back !</h5>
                                             <p className="text-muted">Sign in to continue to Velzon.</p>
                                         </div>
-                                        {error && error ? (<Alert color="danger"> {error} </Alert>) : null}
+                                        {error && error ? (<Alert color="danger"> {error.message} </Alert>) : null}
                                         <div className="p-2 mt-4">
                                             <Form
                                                 onSubmit={(e) => {
@@ -195,7 +228,7 @@ const Login = (props) => {
                                                     <Button color="success" className="btn btn-success w-100" type="submit">Sign In</Button>
                                                 </div>
 
-                                                <div className="mt-4 text-center">
+                                                {/* <div className="mt-4 text-center">
                                                     <div className="signin-other-title">
                                                         <h5 className="fs-13 mb-4 title">Sign In with</h5>
                                                     </div>
@@ -234,7 +267,7 @@ const Login = (props) => {
                                                         <Button color="dark" className="btn-icon"><i className="ri-github-fill fs-16"></i></Button>{" "}
                                                         <Button color="info" className="btn-icon"><i className="ri-twitter-fill fs-16"></i></Button>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </Form>
                                         </div>
                                     </CardBody>

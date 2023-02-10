@@ -11,18 +11,21 @@ axiosJWT.interceptors.request.use(async (config) => {
     console.log(apiUrl)
     const userRefreshToken = config.headers.Authorization.split(' ')[1]
     if (!userRefreshToken || userRefreshToken === 'undefined') {
+        console.log('sini')
         const response = await axios.get(apiUrl + '/auth/refresh-token', {
             withCredentials: true
         });
-        config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+        console.log(response)
+        config.headers.Authorization = `Bearer ${response.accessToken}`;
     } else {
+        console.log('sono')
         const currentDate = new Date();
         const decoded = jwt_decode(config.headers.Authorization.split(' ')[1])
         if (decoded.exp * 1000 < currentDate.getTime()) {
             const response = await axios.get(apiUrl + '/auth/refresh-token', {
                 withCredentials: true
             });
-            config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+            config.headers.Authorization = `Bearer ${response.accessToken}`;
         }
     }
     return config
@@ -35,12 +38,14 @@ axiosJWT.interceptors.request.use(async (config) => {
 axiosJWT.interceptors.response.use((response) => {
     return response
 }, async function (error) {
+    console.log('axios response')
+    console.log(error)
     const originalRequest = error.config;
     // console.log(originalRequest)
     // console.log(error)
 
     if(error.isAxiosError){
-    //     console.log(error.response.data)
+        console.log(error.response.data)
     //     const er = error.response.data
     //     return Promise.reject(er)
     //     // throw new Error('rejected')
