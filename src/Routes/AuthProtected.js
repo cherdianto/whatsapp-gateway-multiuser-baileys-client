@@ -21,6 +21,7 @@ const AuthProtected = (props) => {
       console.log('lagi loading nih')
       setloading(true)
     } else {
+      console.log('nggak loading')
       setloading(false)
     }
   },[isLoading, currentUser, isError, useAuth])

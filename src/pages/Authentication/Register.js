@@ -54,62 +54,31 @@ const Register = () => {
         }),
         onSubmit: async (values, { resetForm }) => {
             const formData = {
-                email : values.email,
-                password : values.password,
-                confirmPassword : values.confirmPassword,
+                email: values.email,
+                password: values.password,
+                confirmPassword: values.confirmPassword,
                 whatsapp: values.whatsapp,
                 nim: values.nim,
                 nama: values.nama,
             }
 
             try {
-                const res = await registerUser(formData)
+                // #NOTE : TIDAK BISA PAKE apiQuery, krn return errornya tidak utuh
+                const res = await axios.post(`${apiUrl}/auth/register`, formData)
                 // console.log(res.user)
                 // setUser(res.user)
                 setError(null)
                 setSuccess(true)
+                resetForm({ values: '' })
             } catch (error) {
-                console.log('error disni')
-                console.log(error)
                 setSuccess(false)
-                // if (error.response.status === 429) {
-                //     // rate limiter error
-                //     setError({
-                //         status: true,
-                //         message: error.response?.data
-                //     })
-                // } else {
-                    // other errors
-                    setError({
-                        status: true,
-                        message: error.response?.message || 'FAILED'
-                    })
-                // }
+                setError({
+                    status: true,
+                    message: error.response.data.message || 'FAILED REGISTER'
+                })
             }
-            resetForm({ values: '' })
         }
     });
-
-    // const { error, registrationError, success } = useSelector(state => ({
-    //     registrationError: state.Account.registrationError,
-    //     success: state.Account.success,
-    //     error: state.Account.error
-    // }));
-
-    // useEffect(() => {
-    //     // dispatch(apiError(""));
-    // }, [dispatch]);
-
-    // useEffect(() => {
-    //     if (success) {
-    //         setTimeout(() => history.push("login"), 3000);
-    //     }
-
-    //     setTimeout(() => {
-    //         // dispatch(resetRegisterFlag());
-    //     }, 3000);
-
-    // }, [dispatch, success, error, history]);
 
     document.title = "Basic SignUp | Velzon - React Admin & Dashboard Template";
 
@@ -151,15 +120,15 @@ const Register = () => {
 
                                                 {success && success ? (
                                                     <>
-                                                        {toast("Your Redirect To Login Page...", { position: "top-right", hideProgressBar: false, className: 'bg-success text-white', progress: undefined, toastId: "" })}
-                                                        <ToastContainer autoClose={2000} limit={1} />
+                                                        {/* {toast("Your Redirect To Login Page...", { position: "top-right", hideProgressBar: false, className: 'bg-success text-white', progress: undefined, toastId: "" })}
+                                                        <ToastContainer autoClose={2000} limit={1} /> */}
                                                         <Alert color="success">
-                                                            Register User Successfully and Your Redirect To Login Page...
+                                                            Register User Success, please sign in
                                                         </Alert>
                                                     </>
                                                 ) : null}
 
-                                                {error && error ? (
+                                                {error?.status ? (
                                                     <Alert color="danger"><div>
                                                         {/* {registrationError} */}
                                                         {error?.message}</div></Alert>
@@ -243,7 +212,7 @@ const Register = () => {
                                                     ) : null}
 
                                                 </div>
-                                                
+
 
                                                 <div className="mb-3">
                                                     <Label htmlFor="userpassword" className="form-label">Password <span className="text-danger">*</span></Label>

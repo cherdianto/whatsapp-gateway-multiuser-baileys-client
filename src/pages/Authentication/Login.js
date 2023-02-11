@@ -49,7 +49,7 @@ const Login = (props) => {
             navigate('/dashboard')
             console.log('logged in')
         }
-    }, [user]);
+    }, [user, navigate]);
 
     const validation = useFormik({
         // enableReinitialize : use this flag when initial values needs to be changed
@@ -70,9 +70,9 @@ const Login = (props) => {
             }
 
             try {
+                // #NOTE : tidak bisa pake methode dari apiQuery, nanti returnnnya error
                 const res = await axios.post(`${apiUrl}/auth/login`, cred)
-                console.log(res.user)
-                setUser(res.user)
+                setUser(res.data.user)
                 setError(null)
             } catch (error) {
                 if (error.response.status === 429) {
@@ -85,8 +85,7 @@ const Login = (props) => {
                     // other errors
                     setError({
                         status: true,
-                        message: 'LOGIN FAILED'
-                        // message: error.response.data.message || 'GAGAL LOGIN'
+                        message: error.response.data.message || 'GAGAL LOGIN'
                     })
                 }
             }
@@ -165,7 +164,7 @@ const Login = (props) => {
                                             <h5 className="text-primary">Welcome Back !</h5>
                                             <p className="text-muted">Sign in to continue to Velzon.</p>
                                         </div>
-                                        {error && error ? (<Alert color="danger"> {error.message} </Alert>) : null}
+                                        {error?.status ? (<Alert color="danger"> {error.message} </Alert>) : null}
                                         <div className="p-2 mt-4">
                                             <Form
                                                 onSubmit={(e) => {

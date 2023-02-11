@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 
 
-const DashboardEcommerce = () => {
+const Dashboard = () => {
   document.title = "Dashboard | Velzon - React Admin & Dashboard Template";
   return (
     <React.Fragment>
@@ -17,4 +17,4 @@ const DashboardEcommerce = () => {
   );
 };
 
-export default DashboardEcommerce;
+export default Dashboard;

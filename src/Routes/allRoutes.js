@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 //Dashboard
-import DashboardEcommerce from "../pages/DashboardEcommerce";
+import Dashboard from "../pages/Dashboard";
 
 //login
 import Login from "../pages/Authentication/Login";
@@ -11,17 +11,24 @@ import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
 
 // User Profile
-import UserProfile from "../pages/Authentication/user-profile";
-// import eror404 from "../pages/Escape/error404";
+import UserProfileSettings from "../pages/Profile/UserProfileSetting";
 import Error404 from "../pages/Escape/error404";
+import App from "../pages/Apps";
+import Setting from "../pages/Setting";
+import Manual from "../pages/Manual";
+import UserProfile from "../pages/Profile/UserProfile";
 
 const authProtectedRoutes = [
   
-  { path: "/dashboard", component: <DashboardEcommerce/> },
-  { path: "/index", component: <DashboardEcommerce/> },
+  { path: "/dashboard", component: <Dashboard/> },
+  { path: "/app", component: <App/> },
+  { path: "/setting", component: <Setting/> },
+  { path: "/manual", component: <Manual/> },
+  // { path: "/profile", component: <UserProfile/> },
+  // { path: "/index", component: <Dashboard/> },
 
   //User Profile
-  { path: "/profile", component: <UserProfile/> },
+  { path: "/profile", component: <UserProfileSettings/> },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name

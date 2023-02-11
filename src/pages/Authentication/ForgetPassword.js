@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Alert, Card, CardBody, Container, FormFeedback, Input, Label, Form } from "reactstrap";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
+import { useUser } from '../../context/user.context'
 
 import { Link } from "react-router-dom";
 import withRouter from '../../Components/Common/withRouter';
@@ -21,9 +22,15 @@ import { useFormik } from "formik";
 // import profile from "../../assets/images/bg.png";
 import logoLight from "../../assets/images/logo-light.png";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
+import { resetPassword } from "../../apiQuery/user.query";
+import axios from "axios";
+const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 
 const ForgetPasswordPage = props => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const { user, setUser } = useUser()
+  const [error, setError] = useState()
+  const [success, setSuccess] = useState()
 
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
@@ -35,21 +42,45 @@ const ForgetPasswordPage = props => {
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
     }),
-    onSubmit: (values) => {
-      // dispatch(userForgetPassword(values, props.history));
+    onSubmit: async (values, {resetForm}) => {
+      try {
+        const res = await axios.get(`${apiUrl}/auth/reset-password?email=${values.email}`)
+        setSuccess({
+          status: res.data.status,
+          message: res.data.message
+        })
+        setError()
+        resetForm({values: ''})
+      } catch (error) {
+        setSuccess()
+        if (error.response.status === 429) {
+          // rate limiter error
+          setError({
+            status: true,
+            message: error.response.data
+          })
+        } else {
+          // other errors
+          setError({
+            status: true,
+            message: error.response.data.message || 'GAGAL RESET PASSWORD'
+          })
+        }
+
+      }
     }
   });
 
-  const { forgetError, forgetSuccessMsg } = useSelector(state => ({
-    forgetError: state.ForgetPassword.forgetError,
-    forgetSuccessMsg: state.ForgetPassword.forgetSuccessMsg,
-  }));
+  // const { forgetError, forgetSuccessMsg } = useSelector(state => ({
+  //   forgetError: state.ForgetPassword.forgetError,
+  //   forgetSuccessMsg: state.ForgetPassword.forgetSuccessMsg,
+  // }));
 
-document.title ="Reset Password | Velzon - React Admin & Dashboard Template";
+  document.title = "Reset Password | Velzon - React Admin & Dashboard Template";
   return (
     <ParticlesAuth>
       <div className="auth-page-content">
-        
+
         <Container>
           <Row>
             <Col lg={12}>
@@ -79,7 +110,7 @@ document.title ="Reset Password | Velzon - React Admin & Dashboard Template";
                       colors="primary:#0ab39c"
                       className="avatar-xl"
                       style={{ width: "120px", height: "120px" }}
-                      >
+                    >
                     </lord-icon>
 
                   </div>
@@ -88,14 +119,14 @@ document.title ="Reset Password | Velzon - React Admin & Dashboard Template";
                     Enter your email and instructions will be sent to you!
                   </Alert>
                   <div className="p-2">
-                    {forgetError && forgetError ? (
+                    {error?.status ? (
                       <Alert color="danger" style={{ marginTop: "13px" }}>
-                        {forgetError}
+                        {error.message}
                       </Alert>
                     ) : null}
-                    {forgetSuccessMsg ? (
+                    {success ? (
                       <Alert color="success" style={{ marginTop: "13px" }}>
-                        {forgetSuccessMsg}
+                        {success.message}
                       </Alert>
                     ) : null}
                     <Form

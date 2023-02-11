@@ -15,8 +15,9 @@ axiosJWT.interceptors.request.use(async (config) => {
         const response = await axios.get(apiUrl + '/auth/refresh-token', {
             withCredentials: true
         });
+        console.log('response refreshToken')
         console.log(response)
-        config.headers.Authorization = `Bearer ${response.accessToken}`;
+        config.headers.Authorization = `Bearer ${response.data.accessToken}`;
     } else {
         console.log('sono')
         const currentDate = new Date();
@@ -25,7 +26,7 @@ axiosJWT.interceptors.request.use(async (config) => {
             const response = await axios.get(apiUrl + '/auth/refresh-token', {
                 withCredentials: true
             });
-            config.headers.Authorization = `Bearer ${response.accessToken}`;
+            config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         }
     }
     return config
@@ -45,7 +46,7 @@ axiosJWT.interceptors.response.use((response) => {
     // console.log(error)
 
     if(error.isAxiosError){
-        console.log(error.response.data)
+        // console.log(error.response.data)
     //     const er = error.response.data
     //     return Promise.reject(er)
     //     // throw new Error('rejected')
@@ -54,7 +55,7 @@ axiosJWT.interceptors.response.use((response) => {
     }
     // console.log(error)
 
-    return Promise.reject('UNAUTHORIZED - INTERCEPTOR RESPONSE')
+    return Promise.reject(error)
 
     // if(error.response.status === 401 && !originalRequest._retry){
     // if(error.response.status === 401 || error.response.status === 403){

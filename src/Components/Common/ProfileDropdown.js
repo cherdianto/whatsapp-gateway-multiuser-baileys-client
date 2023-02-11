@@ -62,8 +62,8 @@ const ProfileDropdown = () => {
                         className="badge bg-soft-success text-success mt-1 float-end">New</span><i
                             className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span
                                 className="align-middle">Settings</span></DropdownItem> */}
-                    <DropdownItem href="#"><i
-                        className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Lock screen</span></DropdownItem>
+                    {/* <DropdownItem href="#"><i
+                        className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Lock screen</span></DropdownItem> */}
                     <DropdownItem href="/logout"><i
                         className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                             className="align-middle" data-key="t-logout">Logout</span></DropdownItem>
