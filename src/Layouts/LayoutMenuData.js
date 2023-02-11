@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Navdata = () => {
-    const history = useNavigate();
+    // const history = useNavigate();
     //state data
     const [isDashboard, setIsDashboard] = useState(false);
     const [isApps, setIsApps] = useState(false);
     const [isSetting, setIsSetting] = useState(false);
-    const [isBaseUi, setIsBaseUi] = useState(false);
-    const [isAdvanceUi, setIsAdvanceUi] = useState(false);
+    const [isFormOption, setIsFormOption] = useState(false);
+    const [isDosenPembimbing, setIsDosenPembimbing] = useState(false);
+    const [isLaboran, setIsLaboran] = useState(false);
+    const [isAlurApproval, setIsAlurApproval] = useState(false);
+    const [isNotifikasi, setIsNotifikasi] = useState(false);
+    const [isKepalaLab, setIsKepalaLab] = useState(false);
     const [isManual, setIsManual] = useState(false);
 
     const [iscurrentState, setIscurrentState] = useState('Dashboard');
@@ -28,6 +32,7 @@ const Navdata = () => {
     }
 
     useEffect(() => {
+        console.log(iscurrentState)
         document.body.classList.remove('twocolumn-panel');
         if (iscurrentState !== 'Dashboard') {
             setIsDashboard(false);
@@ -38,22 +43,33 @@ const Navdata = () => {
         if (iscurrentState !== 'Setting') {
             setIsSetting(false);
         }
-        if (iscurrentState !== 'BaseUi') {
-            setIsBaseUi(false);
+        if (iscurrentState !== 'FormOption') {
+            setIsFormOption(false);
         }
-        if (iscurrentState !== 'AdvanceUi') {
-            setIsAdvanceUi(false);
+        if (iscurrentState !== 'DosenPembimbing') {
+            setIsDosenPembimbing(false);
+        }
+        if (iscurrentState !== 'Laboran') {
+            setIsLaboran(false);
+        }
+        if (iscurrentState !== 'Notifikasi') {
+            setIsNotifikasi(false);
+        }
+        if (iscurrentState !== 'AlurApproval') {
+            setIsAlurApproval(false);
         }
         if (iscurrentState !== 'Manual') {
             setIsManual(false);
         }
     }, [
-        history,
+        // history,
         iscurrentState,
         isDashboard,
         isApps,
-        isBaseUi,
-        isAdvanceUi,
+        isDosenPembimbing,
+        isLaboran,
+        isNotifikasi,
+        isAlurApproval,
         isManual
     ]);
 
@@ -89,54 +105,61 @@ const Navdata = () => {
             }
         },
         {
+            label: "Superadmin Areas",
+            isHeader: true,
+        },
+        {
             id: "setting",
             label: "Setting",
-            icon: "ri-account-circle-line",
-            link: "/setting",
-            stateVariables: isSetting,
+            icon: "ri-share-line",
+            link: "/#",
             click: function (e) {
                 e.preventDefault();
                 setIsSetting(!isSetting);
                 setIscurrentState('Setting');
                 updateIconSidebar(e);
             },
+            stateVariables: isSetting,
+            subItems: [
+                { id: "notifikasi", label: "Notifikasi", link: "/notifikasi", parentId: 'formOption' },
+                { id: "alurApproval", label: "Alur Approval", link: "/alur-approval", parentId: 'formOption'},
+                {
+                    id: "formOption",
+                    label: "Form Option",
+                    link: "/#",
+                    isChildItem: true,
+                    click: function (e) {
+                        e.preventDefault();
+                        setIsFormOption(!isFormOption);
+                        // setIscurrentState('Form Option');
+                    },
+                    stateVariables: isFormOption,
+                    parentId: "setting",
+                    childItems: [
+                        { 
+                            id: 1, 
+                            label: "Dosen Pembimbing", 
+                            link: "/dosen-pembimbing",
+                            click: function (e) {
+                                e.preventDefault();
+                                setIsDosenPembimbing(!isDosenPembimbing);
+                            }
+                        },
+                        { 
+                            id: 2, 
+                            label: "Kepala Lab", 
+                            link: "/kepala-lab",
+                            click: function (e) {
+                                e.preventDefault();
+                                setIsKepalaLab(!isKepalaLab);
+                            }},
+                        { id: 3, label: "Laboran", link: "/laboran"},
+                    ]
+                },
+            ],
         },
         {
-            label: "Superadmin Areas",
-            isHeader: true,
-        },
-        // {
-        //     id: "baseUi",
-        //     label: "Base UI",
-        //     icon: "ri-pencil-ruler-2-line",
-        //     link: "/#",
-        //     stateVariables: isBaseUi,
-        //     click: function (e) {
-        //         e.preventDefault();
-        //         setIsBaseUi(!isBaseUi);
-        //         setIscurrentState('BaseUi');
-        //         updateIconSidebar(e);
-        //     },
-        // },
-        // {
-        //     id: "advanceUi",
-        //     label: "Advance UI",
-        //     icon: "ri-stack-line",
-        //     link: "/#",
-        //     click: function (e) {
-        //         e.preventDefault();
-        //         setIsAdvanceUi(!isAdvanceUi);
-        //         setIscurrentState('AdvanceUi');
-        //         updateIconSidebar(e);
-        //     },
-        //     stateVariables: isAdvanceUi,
-        //     subItems: [
-        //         { id: "nestablelist", label: "Nestable List", link: "#", parentId: "advanceUi" },
-        //         { id: "scrollbar", label: "Scrollbar", link: "#", parentId: "advanceUi" },
-        //     ],
-        // },
-        {
-            id: "usermanual",
+            id: "manual",
             label: "Manual",
             icon: "ri-map-pin-line",
             link: "/manual",

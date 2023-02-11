@@ -16,6 +16,11 @@ import Error404 from "../pages/Escape/error404";
 import App from "../pages/Apps";
 import Setting from "../pages/Setting";
 import Manual from "../pages/Manual";
+import DosenPembimbing from "../pages/Setting/FormOption/DosenPembimbing";
+import KepalaLab from "../pages/Setting/FormOption/KepalaLab";
+import Laboran from "../pages/Setting/FormOption/Laboran";
+import AlurApproval from "../pages/Setting/AlurApproval";
+import Notifikasi from "../pages/Setting/Notifikasi";
 import UserProfile from "../pages/Profile/UserProfile";
 
 const authProtectedRoutes = [
@@ -24,6 +29,11 @@ const authProtectedRoutes = [
   { path: "/app", component: <App/> },
   { path: "/setting", component: <Setting/> },
   { path: "/manual", component: <Manual/> },
+  { path: "/dosen-pembimbing", component: <DosenPembimbing/> },
+  { path: "/kepala-lab", component: <KepalaLab/> },
+  { path: "/laboran", component: <Laboran/> },
+  { path: "/alur-approval", component: <AlurApproval/> },
+  { path: "/notifikasi", component: <Notifikasi/> },
   // { path: "/profile", component: <UserProfile/> },
   // { path: "/index", component: <Dashboard/> },
 
