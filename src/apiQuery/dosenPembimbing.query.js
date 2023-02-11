@@ -114,37 +114,3 @@ export const updateData = async ({accessToken, values}) => {
         throw new Error(error)
     }
 }
-
-
-
-export const logoutUser = async () => {
-    try {
-        const response = await axios.get(`${apiUrl}/auth/logout`)
-        return response.data.user
-    } catch (error) {
-        throw new Error(error)
-    }
-}
-
-export const registerUser = async (formData) => {
-    try {
-        const response = await axios.post(`${apiUrl}/auth/register`, formData)
-        console.log(response)
-        return response
-    } catch (error) {
-        console.log('error di register')
-        throw new Error(error)
-    }
-}
-
-// get with query param : email
-// return : { status, message}
-export const resetPassword = async (email) => {
-    try {
-        const response = await axios.post(`${apiUrl}/auth/reset-password?email=${email}`)
-        return response
-    } catch (error) {
-        // throw new Error(error)
-        return error
-    }
-}

@@ -1,7 +1,7 @@
 import { useUser } from '../context/user.context'
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { fetchUser } from '../apiQuery/user.query.js'
+import { fetchUser } from '../apiQuery/auth.query.js'
 
 const useAuth = ({ redirect }) => {
     const [currentUser, setCurrentUser] = useState(null)

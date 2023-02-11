@@ -14,6 +14,7 @@ import Register from "../pages/Authentication/Register";
 import UserProfileSettings from "../pages/Profile/UserProfileSetting";
 import Error404 from "../pages/Escape/error404";
 import App from "../pages/Apps";
+import User from "../pages/User";
 import Setting from "../pages/Setting";
 import Manual from "../pages/Manual";
 import DosenPembimbing from "../pages/Setting/FormOption/DosenPembimbing";
@@ -27,6 +28,7 @@ const authProtectedRoutes = [
   
   { path: "/dashboard", component: <Dashboard/> },
   { path: "/app", component: <App/> },
+  { path: "/user", component: <User/> },
   { path: "/setting", component: <Setting/> },
   { path: "/manual", component: <Manual/> },
   { path: "/dosen-pembimbing", component: <DosenPembimbing/> },

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import withRouter from '../../Components/Common/withRouter';
-import { logoutUser } from "../../apiQuery/user.query";
+import { logoutUser } from "../../apiQuery/auth.query";
 import { useUser } from '../../context/user.context'
 // #LOGOUT
 // import { logoutUser } from "../../store/actions";

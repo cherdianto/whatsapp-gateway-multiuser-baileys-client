@@ -6,6 +6,7 @@ const Navdata = () => {
     //state data
     const [isDashboard, setIsDashboard] = useState(false);
     const [isApps, setIsApps] = useState(false);
+    const [isUser, setIsUser] = useState(false);
     const [isSetting, setIsSetting] = useState(false);
     const [isFormOption, setIsFormOption] = useState(false);
     const [isDosenPembimbing, setIsDosenPembimbing] = useState(false);
@@ -40,6 +41,9 @@ const Navdata = () => {
         if (iscurrentState !== 'Apps') {
             setIsApps(false);
         }
+        if (iscurrentState !== 'User') {
+            setIsUser(false);
+        }
         if (iscurrentState !== 'Setting') {
             setIsSetting(false);
         }
@@ -66,6 +70,7 @@ const Navdata = () => {
         iscurrentState,
         isDashboard,
         isApps,
+        isUser,
         isDosenPembimbing,
         isLaboran,
         isNotifikasi,
@@ -107,6 +112,19 @@ const Navdata = () => {
         {
             label: "Superadmin Areas",
             isHeader: true,
+        },
+        {
+            id: "user",
+            label: "User",
+            icon: "ri-share-line",
+            link: "/user",
+            click: function (e) {
+                e.preventDefault();
+                setIsUser(!isUser);
+                setIscurrentState('User');
+                updateIconSidebar(e);
+            },
+            stateVariables: isUser
         },
         {
             id: "setting",

@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logoLight from "../../assets/images/logo-light.png";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import axios from 'axios'
-import { registerUser } from "../../apiQuery/user.query";
+import { registerUser } from "../../apiQuery/auth.query";
 
 const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 

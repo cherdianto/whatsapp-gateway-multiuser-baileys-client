@@ -22,7 +22,7 @@ import { useFormik } from "formik";
 // import profile from "../../assets/images/bg.png";
 import logoLight from "../../assets/images/logo-light.png";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
-import { resetPassword } from "../../apiQuery/user.query";
+import { resetPassword } from "../../apiQuery/auth.query";
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 
