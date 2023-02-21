@@ -37,18 +37,14 @@ const Register = () => {
         enableReinitialize: true,
 
         initialValues: {
-            nama: '',
+            fullname: '',
             email: '',
-            nim: '',
-            whatsapp: '',
             password: '',
             confirmPassword: ''
         },
         validationSchema: Yup.object({
-            nama: Yup.string().required("Masukkan nama lengkap"),
+            fullname: Yup.string().required("Masukkan fullname lengkap"),
             email: Yup.string().required("Masukkan email Anda"),
-            nim: Yup.number().required("Masukkan NIM?NIK"),
-            whatsapp: Yup.number().required("Masukkan whatsapp"),
             password: Yup.string().required("Masukkan password"),
             confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Password harus sama')
         }),
@@ -57,9 +53,7 @@ const Register = () => {
                 email: values.email,
                 password: values.password,
                 confirmPassword: values.confirmPassword,
-                whatsapp: values.whatsapp,
-                nim: values.nim,
-                nama: values.nama,
+                fullname: values.fullname,
             }
 
             try {
@@ -134,43 +128,24 @@ const Register = () => {
                                                         {error?.message}</div></Alert>
                                                 ) : null}
                                                 <div className="mb-3">
-                                                    <Label htmlFor="nama" className="form-label">Nama Lengkap <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="fullname" className="form-label">fullname Lengkap <span className="text-danger">*</span></Label>
                                                     <Input
-                                                        name="nama"
+                                                        name="fullname"
                                                         type="text"
-                                                        placeholder="Enter Nama"
+                                                        placeholder="Enter fullname"
                                                         onChange={validation.handleChange}
                                                         onBlur={validation.handleBlur}
-                                                        value={validation.values.nama || ""}
+                                                        value={validation.values.fullname || ""}
                                                         invalid={
-                                                            validation.touched.nama && validation.errors.nama ? true : false
+                                                            validation.touched.fullname && validation.errors.fullname ? true : false
                                                         }
                                                     />
-                                                    {validation.touched.nama && validation.errors.nama ? (
-                                                        <FormFeedback type="invalid"><div>{validation.errors.nama}</div></FormFeedback>
+                                                    {validation.touched.fullname && validation.errors.fullname ? (
+                                                        <FormFeedback type="invalid"><div>{validation.errors.fullname}</div></FormFeedback>
                                                     ) : null}
 
                                                 </div>
-                                                <div className="mb-3">
-                                                    <Label htmlFor="usernim" className="form-label">NIM/NIK <span className="text-danger">*</span></Label>
-                                                    <Input
-                                                        id="nim"
-                                                        name="nim"
-                                                        className="form-control"
-                                                        placeholder="Enter nim address"
-                                                        type="number"
-                                                        onChange={validation.handleChange}
-                                                        onBlur={validation.handleBlur}
-                                                        value={validation.values.nim || ""}
-                                                        invalid={
-                                                            validation.touched.nim && validation.errors.nim ? true : false
-                                                        }
-                                                    />
-                                                    {validation.touched.nim && validation.errors.nim ? (
-                                                        <FormFeedback type="invalid"><div>{validation.errors.nim}</div></FormFeedback>
-                                                    ) : null}
-
-                                                </div>
+                                                
                                                 <div className="mb-3">
                                                     <Label htmlFor="email" className="form-label">Email <span className="text-danger">*</span></Label>
                                                     <Input
@@ -191,28 +166,6 @@ const Register = () => {
                                                     ) : null}
 
                                                 </div>
-
-                                                <div className="mb-3">
-                                                    <Label htmlFor="userwhatsapp" className="form-label">Whatsapp <span className="text-danger">*</span></Label>
-                                                    <Input
-                                                        id="whatsapp"
-                                                        name="whatsapp"
-                                                        className="form-control"
-                                                        placeholder="Enter whatsapp"
-                                                        type="number"
-                                                        onChange={validation.handleChange}
-                                                        onBlur={validation.handleBlur}
-                                                        value={validation.values.whatsapp || ""}
-                                                        invalid={
-                                                            validation.touched.whatsapp && validation.errors.whatsapp ? true : false
-                                                        }
-                                                    />
-                                                    {validation.touched.whatsapp && validation.errors.whatsapp ? (
-                                                        <FormFeedback type="invalid"><div>{validation.errors.whatsapp}</div></FormFeedback>
-                                                    ) : null}
-
-                                                </div>
-
 
                                                 <div className="mb-3">
                                                     <Label htmlFor="userpassword" className="form-label">Password <span className="text-danger">*</span></Label>

@@ -6,7 +6,8 @@ const Navdata = () => {
     //state data
     const [isDashboard, setIsDashboard] = useState(false);
     const [isApps, setIsApps] = useState(false);
-    const [isUser, setIsUser] = useState(false);
+    const [isDevice, setIsDevice] = useState(false);
+    const [isMessage, setIsMessage] = useState(false);
     const [isSetting, setIsSetting] = useState(false);
     const [isFormOption, setIsFormOption] = useState(false);
     const [isDosenPembimbing, setIsDosenPembimbing] = useState(false);
@@ -41,8 +42,11 @@ const Navdata = () => {
         if (iscurrentState !== 'Apps') {
             setIsApps(false);
         }
-        if (iscurrentState !== 'User') {
-            setIsUser(false);
+        if (iscurrentState !== 'Device') {
+            setIsDevice(false);
+        }
+        if (iscurrentState !== 'Message') {
+            setIsMessage(false);
         }
         if (iscurrentState !== 'Setting') {
             setIsSetting(false);
@@ -70,7 +74,8 @@ const Navdata = () => {
         iscurrentState,
         isDashboard,
         isApps,
-        isUser,
+        isDevice,
+        isMessage,
         isDosenPembimbing,
         isLaboran,
         isNotifikasi,
@@ -79,116 +84,129 @@ const Navdata = () => {
     ]);
 
     const menuItems = [
-        {
-            label: "Menu",
-            isHeader: true,
-        },
-        {
-            id: "dashboard",
-            label: "Dashboards",
-            icon: "ri-dashboard-2-line",
-            link: "/dashboard",
-            stateVariables: isDashboard,
-            click: function (e) {
-                e.preventDefault();
-                setIsDashboard(!isDashboard);
-                setIscurrentState('Dashboard');
-                updateIconSidebar(e);
-            }
-        },
-        {
-            id: "apps",
-            label: "Apps",
-            icon: "ri-apps-2-line",
-            link: "/app",
-            stateVariables: isApps,
-            click: function (e) {
-                e.preventDefault();
-                setIsApps(!isApps);
-                setIscurrentState('Apps');
-                updateIconSidebar(e);
-            }
-        },
+        // {
+        //     label: "Menu",
+        //     isHeader: true,
+        // },
+        // {
+        //     id: "dashboard",
+        //     label: "Dashboards",
+        //     icon: "ri-dashboard-2-line",
+        //     link: "/dashboard",
+        //     stateVariables: isDashboard,
+        //     click: function (e) {
+        //         e.preventDefault();
+        //         setIsDashboard(!isDashboard);
+        //         setIscurrentState('Dashboard');
+        //         updateIconSidebar(e);
+        //     }
+        // },
+        // {
+        //     id: "apps",
+        //     label: "Apps",
+        //     icon: "ri-apps-2-line",
+        //     link: "/app",
+        //     stateVariables: isApps,
+        //     click: function (e) {
+        //         e.preventDefault();
+        //         setIsApps(!isApps);
+        //         setIscurrentState('Apps');
+        //         updateIconSidebar(e);
+        //     }
+        // },
         {
             label: "Superadmin Areas",
             isHeader: true,
         },
         {
-            id: "user",
-            label: "User",
-            icon: "ri-share-line",
-            link: "/user",
+            id: "device",
+            label: "Device",
+            icon: "ri-whatsapp-line",
+            link: "/device",
             click: function (e) {
                 e.preventDefault();
-                setIsUser(!isUser);
-                setIscurrentState('User');
+                setIsDevice(!isDevice);
+                setIscurrentState('Device');
                 updateIconSidebar(e);
             },
-            stateVariables: isUser
+            stateVariables: isDevice
         },
         {
-            id: "setting",
-            label: "Setting",
-            icon: "ri-share-line",
-            link: "/#",
+            id: "message",
+            label: "Message",
+            icon: "ri-mail-send-line",
+            link: "/message",
             click: function (e) {
                 e.preventDefault();
-                setIsSetting(!isSetting);
-                setIscurrentState('Setting');
+                setIsMessage(!isMessage);
+                setIscurrentState('Message');
                 updateIconSidebar(e);
             },
-            stateVariables: isSetting,
-            subItems: [
-                { id: "notifikasi", label: "Notifikasi", link: "/notifikasi", parentId: 'formOption' },
-                { id: "alurApproval", label: "Alur Approval", link: "/alur-approval", parentId: 'formOption'},
-                {
-                    id: "formOption",
-                    label: "Form Option",
-                    link: "/#",
-                    isChildItem: true,
-                    click: function (e) {
-                        e.preventDefault();
-                        setIsFormOption(!isFormOption);
-                        // setIscurrentState('Form Option');
-                    },
-                    stateVariables: isFormOption,
-                    parentId: "setting",
-                    childItems: [
-                        { 
-                            id: 1, 
-                            label: "Dosen Pembimbing", 
-                            link: "/dosen-pembimbing",
-                            click: function (e) {
-                                e.preventDefault();
-                                setIsDosenPembimbing(!isDosenPembimbing);
-                            }
-                        },
-                        { 
-                            id: 2, 
-                            label: "Kepala Lab", 
-                            link: "/kepala-lab",
-                            click: function (e) {
-                                e.preventDefault();
-                                setIsKepalaLab(!isKepalaLab);
-                            }},
-                        { id: 3, label: "Laboran", link: "/laboran"},
-                    ]
-                },
-            ],
+            stateVariables: isMessage
         },
-        {
-            id: "manual",
-            label: "Manual",
-            icon: "ri-map-pin-line",
-            link: "/manual",
-            click: function (e) {
-                e.preventDefault();
-                setIsManual(!isManual);
-                setIscurrentState('Manual');
-                updateIconSidebar(e);
-            },
-            stateVariables: isManual,
-        },
+        // {
+        //     id: "setting",
+        //     label: "Setting",
+        //     icon: "ri-share-line",
+        //     link: "/#",
+        //     click: function (e) {
+        //         e.preventDefault();
+        //         setIsSetting(!isSetting);
+        //         setIscurrentState('Setting');
+        //         updateIconSidebar(e);
+        //     },
+        //     stateVariables: isSetting,
+        //     // subItems: [
+        //     //     { id: "notifikasi", label: "Notifikasi", link: "/notifikasi", parentId: 'formOption' },
+        //     //     { id: "alurApproval", label: "Alur Approval", link: "/alur-approval", parentId: 'formOption'},
+        //     //     {
+        //     //         id: "formOption",
+        //     //         label: "Form Option",
+        //     //         link: "/#",
+        //     //         isChildItem: true,
+        //     //         click: function (e) {
+        //     //             e.preventDefault();
+        //     //             setIsFormOption(!isFormOption);
+        //     //             // setIscurrentState('Form Option');
+        //     //         },
+        //     //         stateVariables: isFormOption,
+        //     //         parentId: "setting",
+        //     //         childItems: [
+        //     //             { 
+        //     //                 id: 1, 
+        //     //                 label: "Dosen Pembimbing", 
+        //     //                 link: "/dosen-pembimbing",
+        //     //                 click: function (e) {
+        //     //                     e.preventDefault();
+        //     //                     setIsDosenPembimbing(!isDosenPembimbing);
+        //     //                 }
+        //     //             },
+        //     //             { 
+        //     //                 id: 2, 
+        //     //                 label: "Kepala Lab", 
+        //     //                 link: "/kepala-lab",
+        //     //                 click: function (e) {
+        //     //                     e.preventDefault();
+        //     //                     setIsKepalaLab(!isKepalaLab);
+        //     //                 }},
+        //     //             { id: 3, label: "Laboran", link: "/laboran"},
+        //     //         ]
+        //     //     },
+        //     // ],
+        // },
+        // {
+        //     id: "manual",
+        //     label: "Manual",
+        //     icon: "ri-map-pin-line",
+        //     link: "/manual",
+        //     click: function (e) {
+        //         e.preventDefault();
+        //         setIsManual(!isManual);
+        //         setIscurrentState('Manual');
+        //         updateIconSidebar(e);
+        //     },
+        //     stateVariables: isManual,
+        // },
         
     ];
     return <React.Fragment>{menuItems}</React.Fragment>;

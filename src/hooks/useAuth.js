@@ -35,7 +35,6 @@ const useAuth = ({ redirect }) => {
     }
 
     useEffect(() => {
-        console.log('use effect useAuth')
         if (!user) getUser()
     }, [user])
 

@@ -14,7 +14,6 @@ import Register from "../pages/Authentication/Register";
 import UserProfileSettings from "../pages/Profile/UserProfileSetting";
 import Error404 from "../pages/Escape/error404";
 import App from "../pages/Apps";
-import User from "../pages/User";
 import Setting from "../pages/Setting";
 import Manual from "../pages/Manual";
 import DosenPembimbing from "../pages/Setting/FormOption/DosenPembimbing";
@@ -23,12 +22,15 @@ import Laboran from "../pages/Setting/FormOption/Laboran";
 import AlurApproval from "../pages/Setting/AlurApproval";
 import Notifikasi from "../pages/Setting/Notifikasi";
 import UserProfile from "../pages/Profile/UserProfile";
+import DeviceList from "../pages/Device";
+import Message from "../pages/Message";
 
 const authProtectedRoutes = [
   
   { path: "/dashboard", component: <Dashboard/> },
   { path: "/app", component: <App/> },
-  { path: "/user", component: <User/> },
+  { path: "/device", component: <DeviceList/> },
+  { path: "/message", component: <Message/> },
   { path: "/setting", component: <Setting/> },
   { path: "/manual", component: <Manual/> },
   { path: "/dosen-pembimbing", component: <DosenPembimbing/> },

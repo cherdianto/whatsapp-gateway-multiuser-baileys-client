@@ -28,7 +28,7 @@ import smallImage9 from '../../../assets/images/small/img-9.jpg';
 import { projects, document } from '../../../common/data';
 
 const UserProfile = () => {
-    const { user, setUser } = useUser()
+    const { user } = useUser()
 
     SwiperCore.use([Autoplay]);
 

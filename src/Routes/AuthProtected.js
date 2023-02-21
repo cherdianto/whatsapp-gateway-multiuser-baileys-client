@@ -5,7 +5,7 @@ import { setAuthorization } from "../helpers/api_helper";
 import { useUser } from "../context/user.context";
 import useAuth from "../hooks/useAuth";
 import Loader from '../Components/Common/Loader'
-import { useProfile } from "../Components/Hooks/UserHooks";
+// import { useProfile } from "../Components/Hooks/UserHooks";
 // #LOGOUT
 // import { logoutUser } from "../store/actions";
 
@@ -25,19 +25,7 @@ const AuthProtected = (props) => {
       setloading(false)
     }
   },[isLoading, currentUser, isError, useAuth])
-  // useEffect(() => {
-  //   if (userProfile && !loading && token) {
-  //     setAuthorization(token);
-  //   } else if (!userProfile && loading && !token) {
-  //     dispatch(logoutUser());
-  //   }
-  // }, [token, userProfile, loading]);
 
-  // useEffect(()=> {
-  //   if(!currentUser && isLoading && isError){
-  //     console.log('logout disini')
-  //   }
-  // },[currentUser, isLoading, isError])
   if(loading){
     return (
       <Loader />
