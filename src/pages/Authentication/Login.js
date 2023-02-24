@@ -22,7 +22,7 @@ import axios from 'axios'
 // actions
 // import { loginUser, socialLogin, resetLoginFlag } from "../../store/actions";
 
-import logoLight from "../../assets/images/logo-light.png";
+import logoLight from "../../assets/images/wabot-dark.svg";
 //Import config
 // import { facebook, google } from "../../config";
 import { useUser } from '../../context/user.context';
@@ -46,8 +46,8 @@ const Login = (props) => {
             //     email: user?.user.email,
             //     password: user?.user.confirm_password
             // });
-            navigate('/dashboard')
-            console.log('logged in')
+            navigate('/device')
+            // console.log('logged in')
         }
     }, [user, navigate]);
 
@@ -56,8 +56,8 @@ const Login = (props) => {
         enableReinitialize: true,
 
         initialValues: {
-            email: 'user1@email.com',
-            password: 'password'
+            email: '',
+            password: ''
         },
         validationSchema: Yup.object({
             email: Yup.string().required("Masukkan Alamat Email Anda"),
@@ -137,7 +137,7 @@ const Login = (props) => {
     //     }, 3000);
     // }, [dispatch, error]);
 
-    document.title = "Basic SignIn | Velzon - React Admin & Dashboard Template";
+    document.title = "Basic SignIn | Wabot - Whatsapp Gateway Multiuser";
     return (
         <React.Fragment>
             <ParticlesAuth>
@@ -145,13 +145,13 @@ const Login = (props) => {
                     <Container>
                         <Row>
                             <Col lg={12}>
-                                <div className="text-center mt-sm-5 mb-4 text-white-50">
+                                <div className="text-center mt-sm-5 mb-4 text-dark-50">
                                     <div>
                                         <Link to="/" className="d-inline-block auth-logo">
-                                            <img src={logoLight} alt="" height="20" />
+                                            <img src={logoLight} alt="" height="35" />
                                         </Link>
                                     </div>
-                                    <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                    <p className="mt-3 fs-15 fw-medium">Whatsapp Gateway Multiuser</p>
                                 </div>
                             </Col>
                         </Row>
@@ -161,8 +161,7 @@ const Login = (props) => {
                                 <Card className="mt-4">
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
-                                            <h5 className="text-primary">Welcome Back !</h5>
-                                            <p className="text-muted">Sign in to continue to Velzon.</p>
+                                            <h5 className="text-dark">Welcome Back !</h5>
                                         </div>
                                         {error?.status ? (<Alert color="danger"> {error.message} </Alert>) : null}
                                         <div className="p-2 mt-4">

@@ -1028,7 +1028,7 @@
 .menu-title {
     letter-spacing: .05em;
     cursor: default;
-    font-size: 11px;
+    font-size: 0.8rem;
     text-transform: uppercase;
     color: $vertical-menu-title-color;
     font-weight: $font-weight-semibold;
@@ -1293,25 +1293,4 @@
     background-size: cover;
     background-position: 50%;
     opacity: .07;
-}
-
-[data-sidebar-image="img-1"]{
-    .sidebar-background { 
-        background-image: url('../../images/sidebar/img-1.jpg');
-    }
-}
-[data-sidebar-image="img-2"]{
-    .sidebar-background { 
-        background-image: url('../../images/sidebar/img-2.jpg');
-    }
-}
-[data-sidebar-image="img-3"]{
-    .sidebar-background { 
-        background-image: url('../../images/sidebar/img-3.jpg');
-    }
-}
-[data-sidebar-image="img-4"]{
-    .sidebar-background { 
-        background-image: url('../../images/sidebar/img-4.jpg');
-    }
 }

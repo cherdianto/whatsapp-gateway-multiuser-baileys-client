@@ -6,7 +6,7 @@
 
 // Prefix for :root CSS variables
 
-$variable-prefix:             vz-; // Deprecated in v5.2.0 for the shorter `$prefix`
+$variable-prefix:             wabot-; // Deprecated in v5.2.0 for the shorter `$prefix`
 $prefix:                      $variable-prefix;
 
 // Font Family
@@ -25,7 +25,7 @@ $vertical-menu-bg:                                var(--#{$prefix}vertical-menu-
 $vertical-menu-box-shadow:                        0 2px 4px rgba(15,34,58,0.12);
 $vertical-menu-border:                            $white;
 $vertical-menu-z-index:                           1002;
-$vertical-menu-item-font-size:                    0.9375rem;
+$vertical-menu-item-font-size:                    1.1rem;
 $vertical-menu-item-font-family:                  $font-family-secondary;
 $vertical-menu-item-color:                        var(--#{$prefix}vertical-menu-item-color);
 $vertical-menu-item-hover-color:                  var(--#{$prefix}vertical-menu-item-hover-color);
@@ -180,13 +180,13 @@ $grays: (
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue:       #3577f1;
-$indigo:     #405189;
+$blue:       #519259;
+$indigo:     #064635;
 $purple:     #6559cc;
 $pink:       #f672a7;
-$red:        #f06548;
+$red:        #F48484;
 $orange:     #f1963b;
-$yellow:     #f7b84b;
+$yellow:     #F0BB62;
 $green:      #0ab39c;
 $teal:       #02a8b5;
 $cyan:       #299cdb;
@@ -693,7 +693,7 @@ $font-family-code:            var(--#{$prefix}font-monospace);
 // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
 // $font-size-base affects the font size of the body text
 $font-size-root:              null;
-$font-size-base:              0.8125rem; // Assumes the browser default, typically `16px`
+$font-size-base:              0.9rem; // Assumes the browser default, typically `16px`
 $font-size-sm:                $font-size-base * .875;
 $font-size-lg:                $font-size-base * 1.25;
 

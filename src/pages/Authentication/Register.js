@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 //import images 
-import logoLight from "../../assets/images/logo-light.png";
+import logoDark from "../../assets/images/wabot-dark.svg";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import axios from 'axios'
 import { registerUser } from "../../apiQuery/auth.query";
@@ -74,7 +74,7 @@ const Register = () => {
         }
     });
 
-    document.title = "Basic SignUp | Velzon - React Admin & Dashboard Template";
+    document.title = "Basic SignUp | Wabot - Whatsapp Gateway Multiuser";
 
     return (
         <React.Fragment>
@@ -83,13 +83,13 @@ const Register = () => {
                     <Container>
                         <Row>
                             <Col lg={12}>
-                                <div className="text-center mt-sm-5 mb-4 text-white-50">
+                                <div className="text-center mt-sm-5 mb-4 text-dark-50">
                                     <div>
                                         <Link to="/" className="d-inline-block auth-logo">
-                                            <img src={logoLight} alt="" height="20" />
+                                            <img src={logoDark} alt="" height="35" />
                                         </Link>
                                     </div>
-                                    <p className="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
+                                    <p className="mt-3 fs-15 fw-medium">Whatsapp Gateway Multiuser</p>
                                 </div>
                             </Col>
                         </Row>
@@ -101,7 +101,6 @@ const Register = () => {
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
                                             <h5 className="text-primary">Create New Account</h5>
-                                            <p className="text-muted">Get your free velzon account now</p>
                                         </div>
                                         <div className="p-2 mt-4">
                                             <Form
@@ -128,7 +127,7 @@ const Register = () => {
                                                         {error?.message}</div></Alert>
                                                 ) : null}
                                                 <div className="mb-3">
-                                                    <Label htmlFor="fullname" className="form-label">fullname Lengkap <span className="text-danger">*</span></Label>
+                                                    <Label htmlFor="fullname" className="form-label">Fullname <span className="text-danger">*</span></Label>
                                                     <Input
                                                         name="fullname"
                                                         type="text"
@@ -206,7 +205,7 @@ const Register = () => {
                                                 </div>
 
                                                 <div className="mb-4">
-                                                    <p className="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Velzon
+                                                    <p className="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Wabot
                                                         <Link to="#" className="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</Link></p>
                                                 </div>
 

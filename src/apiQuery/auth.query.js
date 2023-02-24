@@ -46,10 +46,10 @@ export const logoutUser = async () => {
 export const registerUser = async (formData) => {
     try {
         const response = await axios.post(`${apiUrl}/auth/register`, formData)
-        console.log(response)
+        // console.log(response)
         return response
     } catch (error) {
-        console.log('error di register')
+        // console.log('error di register')
         throw new Error(error)
     }
 }

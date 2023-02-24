@@ -45,7 +45,7 @@ export const postAdd = async ({accessToken, values}) => {
 
     try {
         const response = await axiosJWT.post(`${apiUrl}/user/add`, values, config)
-        console.log(response)
+        // console.log(response)
         return response
     } catch (error) {
         throw new Error(error)
@@ -69,7 +69,7 @@ export const deleteData = async ({accessToken, id}) => {
 }
 
 export const updateData = async ({accessToken, values}) => {
-    console.log(values)
+    // console.log(values)
     const config = {
         headers: {
             Authorization: `Bearer ${accessToken}`
@@ -78,7 +78,7 @@ export const updateData = async ({accessToken, values}) => {
 
     try {
         const response = await axiosJWT.put(`${apiUrl}/user/update/${values.id}`, values, config)
-        console.log(response)
+        // console.log(response)
         return response
     } catch (error) {
         throw new Error(error)

@@ -8,7 +8,9 @@ import {
   useFilters,
   useExpanded,
   usePagination,
-  useRowSelect
+  useRowSelect,
+  // useFlexLayout,
+  useResizeColumns
 } from "react-table";
 import { Table, Row, Col, Button, Input, CardBody } from "reactstrap";
 import { Filter, DefaultColumnFilter } from "./filters";
@@ -117,23 +119,6 @@ const TableContainer = ({
   data,
   isGlobalSearch,
   isGlobalFilter,
-  isProductsFilter,
-  isCustomerFilter,
-  isOrderFilter,
-  isContactsFilter,
-  isCompaniesFilter,
-  isLeadsFilter,
-  isCryptoOrdersFilter,
-  isInvoiceListFilter,
-  isTicketsListFilter,
-  isNFTRankingFilter,
-  isTaskListFilter,
-  isAddOptions,
-  isAddUserList,
-  handleOrderClicks,
-  handleUserClick,
-  handleCustomerClick,
-  isAddCustList,
   customPageSize,
   tableClass,
   theadClass,
@@ -172,6 +157,8 @@ const TableContainer = ({
       },
     },
     useGlobalFilter,
+    // useResizeColumns,
+    // useFlexLayout,
     useFilters,
     useSortBy,
     useExpanded,
@@ -214,63 +201,7 @@ const TableContainer = ({
             preGlobalFilteredRows={preGlobalFilteredRows}
             globalFilter={state.globalFilter}
             setGlobalFilter={setGlobalFilter}
-            isProductsFilter={isProductsFilter}
-            isCustomerFilter={isCustomerFilter}
-            isOrderFilter={isOrderFilter}
-            isContactsFilter={isContactsFilter}
-            isCompaniesFilter={isCompaniesFilter}
-            isLeadsFilter={isLeadsFilter}
-            isCryptoOrdersFilter={isCryptoOrdersFilter}
-            isInvoiceListFilter={isInvoiceListFilter}
-            isTicketsListFilter={isTicketsListFilter}
-            isNFTRankingFilter={isNFTRankingFilter}
-            isTaskListFilter={isTaskListFilter}
           />
-        )}
-        {isAddOptions && (
-          <Col sm="7">
-            <div className="text-sm-end">
-              <Button
-                type="button"
-                color="success"
-                className="btn-rounded  mb-2 me-2"
-                onClick={handleOrderClicks}
-              >
-                <i className="mdi mdi-plus me-1" />
-                Add New Order
-              </Button>
-            </div>
-          </Col>
-        )}
-        {isAddUserList && (
-          <Col sm="7">
-            <div className="text-sm-end">
-              <Button
-                type="button"
-                color="primary"
-                className="btn mb-2 me-2"
-                onClick={handleUserClick}
-              >
-                <i className="mdi mdi-plus-circle-outline me-1" />
-                Create New User
-              </Button>
-            </div>
-          </Col>
-        )}
-        {isAddCustList && (
-          <Col sm="7">
-            <div className="text-sm-end">
-              <Button
-                type="button"
-                color="success"
-                className="btn-rounded mb-2 me-2"
-                onClick={handleCustomerClick}
-              >
-                <i className="mdi mdi-plus me-1" />
-                New Customers
-              </Button>
-            </div>
-          </Col>
         )}
       </Row>
 
@@ -281,7 +212,7 @@ const TableContainer = ({
             {headerGroups.map((headerGroup) => (
               <tr className={trClass} key={headerGroup.id}  {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th key={column.id} className={thClass} {...column.getSortByToggleProps()}>
+                  <th key={column.id} className={thClass} {...column.getSortByToggleProps()} {...column.getHeaderProps({ style: { maxWidth: column.maxWidth}})}>
                     {column.render("Header")}
                     {generateSortingIndicator(column)}
                     {/* <Filter column={column} /> */}
@@ -299,7 +230,7 @@ const TableContainer = ({
                   <tr>
                     {row.cells.map((cell) => {
                       return (
-                        <td key={cell.id} {...cell.getCellProps()}>
+                        <td key={cell.id} {...cell.getCellProps({ style: { maxWidth: cell.column.maxWidth, 'whiteSpace': 'unset'}})}>
                           {cell.render("Cell")}
                         </td>
                       );

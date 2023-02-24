@@ -4,7 +4,7 @@ axios.defaults.withCredentials = true;
 
 const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 
-export const getDatas = async (accessToken) => {
+export const getSessions = async (accessToken) => {
     const config = {
         headers: {
             Authorization: `Bearer ${accessToken}`
@@ -12,23 +12,18 @@ export const getDatas = async (accessToken) => {
     }
 
     try {
-        const response = await axiosJWT.get(`${apiUrl}/message/all`, config)
+        const response = await axiosJWT.get(`${apiUrl}/sessions/all`, config)
         // console.log(response)
-        return response.data.messages
+        return response.data
     } catch (error) {
         throw new Error(error)
     }
 }
 
-export const addData = async ({accessToken, newValues}) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        },
-    }
+export const addSession = async (apiKey) => {
 
     try {
-        const response = await axiosJWT.post(`${apiUrl}/message/add`, newValues, config)
+        const response = await axios.get(`${apiUrl}/sessions/add?key=${apiKey}`)
         // console.log(response)
         return response
     } catch (error) {
@@ -36,7 +31,7 @@ export const addData = async ({accessToken, newValues}) => {
     }
 }
 
-// export const deleteData = async ({accessToken, id}) => {
+// export const deleteSession = async ({accessToken, id}) => {
 //     const config = {
 //         headers: {
 //             Authorization: `Bearer ${accessToken}`
@@ -44,7 +39,7 @@ export const addData = async ({accessToken, newValues}) => {
 //     }
 
 //     try {
-//         const response = await axiosJWT.delete(`${apiUrl}/message/delete/${id}`, config)
+//         const response = await axiosJWT.delete(`${apiUrl}/device/delete/${id}`, config)
 //         // console.log(response)
 //         // return response
 //     } catch (error) {
@@ -52,7 +47,7 @@ export const addData = async ({accessToken, newValues}) => {
 //     }
 // }
 
-// export const updateData = async ({accessToken, values}) => {
+// export const updateSession = async ({accessToken, values}) => {
 //     console.log(values)
 //     const config = {
 //         headers: {
@@ -60,8 +55,20 @@ export const addData = async ({accessToken, newValues}) => {
 //         },
 //     }
 
+//     console.log(config)
+
 //     try {
-//         const response = await axiosJWT.put(`${apiUrl}/message/update/${values.id}`, values, config)
+//         const response = await axiosJWT.put(`${apiUrl}/device/update/${values.id}`, values, config)
+//         console.log(response)
+//         return response
+//     } catch (error) {
+//         throw new Error(error)
+//     }
+// }
+
+// export const logout = async (apiKey) => {
+//     try {
+//         const response = await axios.get(`${apiUrl}/device/logout?key=${apiKey}`)
 //         console.log(response)
 //         return response
 //     } catch (error) {

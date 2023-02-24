@@ -1,17 +1,17 @@
-// Import Images
-import avatar1 from "../../assets/images/users/avatar-1.jpg";
-import avatar2 from "../../assets/images/users/avatar-2.jpg";
-import avatar3 from "../../assets/images/users/avatar-3.jpg";
-import avatar4 from "../../assets/images/users/avatar-4.jpg";
-import avatar5 from "../../assets/images/users/avatar-5.jpg";
-import avatar6 from "../../assets/images/users/avatar-6.jpg";
-import avatar7 from "../../assets/images/users/avatar-7.jpg";
-import avatar8 from "../../assets/images/users/avatar-8.jpg";
+// // Import Images
+// import avatar1 from "../../assets/images/users/avatar-1.jpg";
+// import avatar2 from "../../assets/images/users/avatar-2.jpg";
+// import avatar3 from "../../assets/images/users/avatar-3.jpg";
+// import avatar4 from "../../assets/images/users/avatar-4.jpg";
+// import avatar5 from "../../assets/images/users/avatar-5.jpg";
+// import avatar6 from "../../assets/images/users/avatar-6.jpg";
+// import avatar7 from "../../assets/images/users/avatar-7.jpg";
+// import avatar8 from "../../assets/images/users/avatar-8.jpg";
 
-import btcCoin from "../../assets/images/svg/crypto-icons/btc.svg";
-import ltcCoin from "../../assets/images/svg/crypto-icons/ltc.svg";
-import ethCoin from "../../assets/images/svg/crypto-icons/eth.svg";
-import dashCoin from "../../assets/images/svg/crypto-icons/dash.svg";
+// import btcCoin from "../../assets/images/svg/crypto-icons/btc.svg";
+// import ltcCoin from "../../assets/images/svg/crypto-icons/ltc.svg";
+// import ethCoin from "../../assets/images/svg/crypto-icons/eth.svg";
+// import dashCoin from "../../assets/images/svg/crypto-icons/dash.svg";
 
 const tileBoxs1 = [
     {
@@ -400,9 +400,9 @@ const widgetsActivities = [
         time: "12:00am - 03:30pm",
         caption: "Meeting for campaign with sales team",
         subItem: [
-            { id: 1, img: avatar1 },
-            { id: 2, img: avatar2 },
-            { id: 3, img: avatar3 },
+            // { id: 1, img: avatar1 },
+            // { id: 2, img: avatar2 },
+            // { id: 3, img: avatar3 },
             { id: 4, imgNumber: "5", bgcolor: "bg-info" },
         ],
     },
@@ -413,10 +413,10 @@ const widgetsActivities = [
         time: "02:00pm - 03:45pm",
         caption: "Adding a new event with attachments",
         subItem: [
-            { id: 1, img: avatar4 },
-            { id: 2, img: avatar5 },
-            { id: 3, img: avatar6 },
-            { id: 4, img: avatar7 },
+            // { id: 1, img: avatar4 },
+            // { id: 2, img: avatar5 },
+            // { id: 3, img: avatar6 },
+            // { id: 4, img: avatar7 },
             { id: 5, imgNumber: "3", bgcolor: "bg-success" },
         ],
     },
@@ -427,9 +427,9 @@ const widgetsActivities = [
         time: "04:30pm - 07:15pm",
         caption: "Create new project Bundling Product",
         subItem: [
-            { id: 1, img: avatar8 },
-            { id: 2, img: avatar1 },
-            { id: 3, img: avatar2 },
+            // { id: 1, img: avatar8 },
+            // { id: 2, img: avatar1 },
+            // { id: 3, img: avatar2 },
             { id: 4, imgNumber: "4", bgcolor: "bg-primary" },
         ],
     },
@@ -440,9 +440,9 @@ const widgetsActivities = [
         time: "10:30am - 01:15pm",
         caption: "Weekly closed sales won checking with sales team",
         subItem: [
-            { id: 1, img: avatar1 },
-            { id: 2, img: avatar5 },
-            { id: 3, img: avatar2 },
+            // { id: 1, img: avatar1 },
+            // { id: 2, img: avatar5 },
+            // { id: 3, img: avatar2 },
             { id: 4, imgNumber: "9", bgcolor: "bg-warning" },
         ],
     },
@@ -482,7 +482,7 @@ const widgetsTasks = [
     {
         id: 6,
         forId: "task_six",
-        text: "Styling wireframe design and documentation for velzon admin",
+        text: "Styling wireframe design and documentation for Wabot admin",
         date: "27 Sep, 2021",
     },
 ];
@@ -535,7 +535,7 @@ const widgetsAudiences = [
 const widgetsPortfolio = [
     {
         id: 1,
-        img: btcCoin,
+        // img: btcCoin,
         label: "Bitcoin",
         coinName: "BTC",
         coinVolume: "0.00584875",
@@ -546,7 +546,7 @@ const widgetsPortfolio = [
     },
     {
         id: 2,
-        img: ethCoin,
+        // img: ethCoin,
         label: "Ethereum",
         coinName: "ETH",
         coinVolume: "2.25842108",
@@ -557,7 +557,7 @@ const widgetsPortfolio = [
     },
     {
         id: 3,
-        img: ltcCoin,
+        // img: ltcCoin,
         label: "Litecoin",
         coinName: "LTC",
         coinVolume: "10.58963217",
@@ -568,7 +568,7 @@ const widgetsPortfolio = [
     },
     {
         id: 4,
-        img: dashCoin,
+        // img: dashCoin,
         label: "Dash",
         coinName: "DASH",
         coinVolume: "204.28565885",

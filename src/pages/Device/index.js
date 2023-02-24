@@ -15,6 +15,7 @@ import * as Yup from 'yup'
 import classnames from "classnames";
 import { getDatas, addData, deleteData, updateData, logout } from "../../apiQuery/device.query";
 import QRCode from "qrcode";
+import axios from "axios";
 
 const apiBaseUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
 
@@ -80,12 +81,12 @@ const DeviceList = () => {
     })
 
     // QR CODE DATA GETTER 
-    useEffect(() => {
-        // QRCode.toCanvas(
-        //     canvasRef.current,
-        //     qrData || ' ', (error) => error && console.log(error)
-        // )
-    }, [qrData])
+    // useEffect(() => {
+    //     // QRCode.toCanvas(
+    //     //     canvasRef.current,
+    //     //     qrData || ' ', (error) => error && console.log(error)
+    //     // )
+    // }, [qrData])
 
 
     // UPDATE DATA DEVICE FROM REACT-QUERY
@@ -177,7 +178,7 @@ const DeviceList = () => {
                 try {
                     await updateSingleData.mutate({ accessToken: user?.accessToken, values: newValues })
                 } catch (error) {
-                    console.log(error)
+                    // console.log(error)
                     throw new Error(error)
                 }
             } else {
@@ -427,15 +428,17 @@ const DeviceList = () => {
             setModalScan(true)
         }
     })
-    const handleScanQrCode = ({ apiKey }) => {
-        setScanUrl(`${apiBaseUrl}/device/scan?key=${apiKey}`)
-        // console.log(scanUrl)
+    const handleScanQrCode = async ({ apiKey }) => {
+        // setScanUrl(`${apiBaseUrl}/sessions/add?key=${apiKey}`)
+        const response = await axios.get(`${apiBaseUrl}/sessions/add?key=${apiKey}`)
+        // console.log(response.data.data.qr)
+        setQrData(response.data.data.qr)
         setIsScan(true)
         toggleModalScan()
     }
 
     const handleLogoutDevice = async ({ apiKey }) => {
-        console.log(dataRow.apiKey)
+        // console.log(dataRow.apiKey)
         try {
             await logoutDevice.mutate(apiKey)
         } catch (error) {
@@ -542,7 +545,7 @@ const DeviceList = () => {
         return <div className="text-danger">Error...</div>
     }
 
-    document.title = "Device List | Velzon - React Admin & Dosen Pembimbing Template";
+    document.title = "Device List | Wabot - Whatsapp Gateway Multiuser";
     return (
         <React.Fragment>
             <div className="page-content">
@@ -687,15 +690,16 @@ const DeviceList = () => {
                                 id="scanQrcode"
                                 isOpen={modalScan}
                                 toggle={toggleModalScan}
-                                size={'lg'}
+                                size={'md'}
                                 centered
                             >
                                 <ModalHeader className="bg-light p-3" toggle={toggleModalScan}>Scan QR Code</ModalHeader>
-                                <ModalBody>
-                                    <>
+                                <ModalBody className="d-flex align-items-center justify-content-center">
+                                    {/* <> */}
                                         {/* <canvas ref={canvasRef} /> */}
-                                        <iframe src={scanUrl} width='100%' height={500}></iframe>
-                                    </>
+                                        {/* <iframe src={scanUrl} width='100%' height={500}></iframe> */}
+                                        <img src={qrData} alt='qr code'/>
+                                    {/* </> */}
                                 </ModalBody>
 
                             </Modal>

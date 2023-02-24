@@ -5,13 +5,13 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "../../context/user.context";
 import DeleteModal from "../../Components/Common/DeleteModal";
-import * as XLSX from 'xlsx'
+// import * as XLSX from 'xlsx'
 import { Link } from 'react-router-dom'
 import { Card, CardBody, Alert, CardHeader, Modal, ModalBody, ModalHeader, Input, ModalFooter, Form, Row, Col, Label, CardFooter } from 'reactstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'
+// import * as Yup from 'yup'
 import classnames from "classnames";
 import { getDatas, addData } from "../../apiQuery/message.query";
 import * as moment from "moment";
@@ -137,20 +137,23 @@ const Message = () => {
         //   status: Yup.string().required("Please Enter Delivery Status")
         // }),
         onSubmit: async (values) => {
-            console.log(values)
+            // console.log(values)
 
             const choosenDevice = user?.devices?.filter((device) => device._id === values.deviceId)
-            console.log(choosenDevice[0].apiKey)
+            // console.log(choosenDevice[0].apiKey)
 
             const newValues = {
                 ...values,
+                message: {
+                    text: values.message
+                },
                 key : choosenDevice[0].apiKey
             }
 
-            console.log(newValues)
+            // console.log(newValues)
 
             if (!isEdit) {
-                console.log('masuk sini')
+                // console.log('masuk sini')
                 try {
                     await addSingleData.mutate({ accessToken: user?.accessToken, newValues })
                 } catch (error) {
@@ -259,9 +262,10 @@ const Message = () => {
             },
             {
                 Header: "Message",
-                accessor: "message",
+                accessor: "message.text",
                 id: "message",
-                filterable: true
+                filterable: true,
+                maxWidth: 400
             },
             {
                 Header: "Status",
@@ -362,7 +366,7 @@ const Message = () => {
                                     className="text-danger d-inline-block remove-item-btn"
                                     onClick={() => {
                                         const dataUser = cellProps.row.original;
-                                        console.log(dataUser)
+                                        // console.log(dataUser)
                                         setDataRow(dataUser)
                                         // handleDeleteClick();
                                     }}
@@ -499,7 +503,7 @@ const Message = () => {
         return <div className="text-danger">Error...</div>
     }
 
-    document.title = "Device List | Velzon - React Admin & Dosen Pembimbing Template";
+    document.title = "Device List | Wabot - Whatsapp Gateway Multiuser";
     return (
         <React.Fragment>
             <div className="page-content">
@@ -724,7 +728,7 @@ const Message = () => {
                                                     </Col>
                                                     <Col lg={6} className="mb-3">
                                                         <Label htmlFor="isGroup" className="form-label">
-                                                            Priority
+                                                            Send to group
                                                         </Label>
 
                                                         <Input
@@ -752,7 +756,7 @@ const Message = () => {
                                                     </Col>
                                                     <Col lg={6} className="mb-3">
                                                         <Label htmlFor="retry" className="form-label">
-                                                            Priority
+                                                            Retry on failed
                                                         </Label>
 
                                                         <Input

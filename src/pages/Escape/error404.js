@@ -4,7 +4,7 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 
 
 const Error404 = () => {
-  document.title = "Dashboard | Velzon - React Admin & Dashboard Template";
+  document.title = "Dashboard | Wabot - Whatsapp Gateway Multiuser";
   return (
     <React.Fragment>
       <div className="page-content">

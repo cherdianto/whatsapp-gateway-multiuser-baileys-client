@@ -6,7 +6,7 @@ import { useUser } from "../../context/user.context";
 
 const Dashboard = () => {
   const { user } = useUser()
-  document.title = "Dashboard | Velzon - React Admin & Dashboard Template";
+  document.title = "Dashboard | Wabot - Whatsapp Gateway Multiuser";
   return (
     <React.Fragment>
       <div className="page-content">

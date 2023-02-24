@@ -4,7 +4,7 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 
 
 const Manual = () => {
-  document.title = "Manual | Velzon - React Admin & Dashboard Template";
+  document.title = "Manual | Wabot - Whatsapp Gateway Multiuser";
   return (
     <React.Fragment>
       <div className="page-content">

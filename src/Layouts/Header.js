@@ -3,17 +3,12 @@ import { Link } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle, Form } from 'reactstrap';
 
 //import images
-import logoSm from "../assets/images/logo-sm.png";
-import logoDark from "../assets/images/logo-dark.png";
-import logoLight from "../assets/images/logo-light.png";
+import logoSm from "../assets/images/wabot-light.svg";
+import logoDark from "../assets/images/wabot-dark.svg";
+import logoLight from "../assets/images/wabot-light.svg";
 
 //import Components
-import SearchOption from '../Components/Common/SearchOption';
-import LanguageDropdown from '../Components/Common/LanguageDropdown';
-// import WebAppsDropdown from '../Components/Common/WebAppsDropdown';
-// import MyCartDropdown from '../Components/Common/MyCartDropdown';
-// import FullScreenDropdown from '../Components/Common/FullScreenDropdown';
-import NotificationDropdown from '../Components/Common/NotificationDropdown';
+// import NotificationDropdown from '../Components/Common/NotificationDropdown';
 import ProfileDropdown from '../Components/Common/ProfileDropdown';
 import LightDark from '../Components/Common/LightDark';
 
@@ -29,11 +24,6 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
         if (windowSize > 767)
             document.querySelector(".hamburger-icon").classList.toggle('open');
 
-        //For collapse horizontal menu
-        // if (document.documentElement.getAttribute('data-layout') === "horizontal") {
-        //     document.body.classList.contains("menu") ? document.body.classList.remove("menu") : document.body.classList.add("menu");
-        // }
-
         //For collapse vertical menu
         if (document.documentElement.getAttribute('data-layout') === "vertical") {
             if (windowSize < 1025 && windowSize > 767) {
@@ -47,11 +37,6 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                 document.documentElement.setAttribute('data-sidebar-size', 'lg');
             }
         }
-
-        //Two column menu
-        // if (document.documentElement.getAttribute('data-layout') === "twocolumn") {
-        //     document.body.classList.contains('twocolumn-panel') ? document.body.classList.remove('twocolumn-panel') : document.body.classList.add('twocolumn-panel');
-        // }
     };
     return (
         <React.Fragment>
@@ -91,9 +76,6 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                                     <span></span>
                                 </span>
                             </button>
-
-
-                            <SearchOption />
                         </div>
 
                         <div className="d-flex align-items-center">
@@ -115,27 +97,13 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
                                     </Form>
                                 </DropdownMenu>
                             </Dropdown>
-
-                            {/* LanguageDropdown */}
-                            <LanguageDropdown />
-
-                            {/* WebAppsDropdown */}
-                            {/* <WebAppsDropdown /> */}
-
-                            {/* MyCartDropdwon */}
-                            {/* <MyCartDropdown /> */}
-
-                            {/* FullScreenDropdown */}
-                            {/* <FullScreenDropdown /> */}
-
-                            {/* Dark/Light Mode set */}
                             <LightDark
                                 layoutMode={layoutModeType}
                                 onChangeLayoutMode={onChangeLayoutMode}
                             />
 
                             {/* NotificationDropdown */}
-                            <NotificationDropdown />
+                            {/* <NotificationDropdown /> */}
 
                             {/* ProfileDropdown */}
                             <ProfileDropdown />

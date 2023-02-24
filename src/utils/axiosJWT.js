@@ -8,18 +8,18 @@ axios.defaults.withCredentials = true;
 const axiosJWT = axios.create()
 
 axiosJWT.interceptors.request.use(async (config) => {
-    console.log(apiUrl)
+    // console.log(apiUrl)
     const userRefreshToken = config.headers.Authorization.split(' ')[1]
     if (!userRefreshToken || userRefreshToken === 'undefined') {
-        console.log('sini')
+        // console.log('sini')
         const response = await axios.get(apiUrl + '/auth/refresh-token', {
             withCredentials: true
         });
-        console.log('response refreshToken')
-        console.log(response)
+        // console.log('response refreshToken')
+        // console.log(response)
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
     } else {
-        console.log('sono')
+        // console.log('sono')
         const currentDate = new Date();
         const decoded = jwt_decode(config.headers.Authorization.split(' ')[1])
         if (decoded.exp * 1000 < currentDate.getTime()) {
@@ -39,8 +39,8 @@ axiosJWT.interceptors.request.use(async (config) => {
 axiosJWT.interceptors.response.use((response) => {
     return response
 }, async function (error) {
-    console.log('axios response')
-    console.log(error)
+    // console.log('axios response')
+    // console.log(error)
     const originalRequest = error.config;
     // console.log(originalRequest)
     // console.log(error)

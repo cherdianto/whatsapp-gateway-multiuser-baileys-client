@@ -47,7 +47,7 @@ const UserProfile = () => {
         }
     };
 
-    document.title = "Profile | Velzon - React Admin & Dashboard Template";
+    document.title = "Profile | Wabot - Whatsapp Gateway Multiuser";
 
     return (
         <React.Fragment>

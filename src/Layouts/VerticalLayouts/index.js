@@ -6,7 +6,7 @@ import { Collapse } from 'reactstrap';
 // Import Data
 import navdata from "../LayoutMenuData";
 //i18n
-import { withTranslation } from "react-i18next";
+// import { withTranslation } from "react-i18next";
 import withRouter from '../../Components/Common/withRouter';
 
 const VerticalLayout = (props) => {
@@ -86,7 +86,7 @@ const VerticalLayout = (props) => {
                     <React.Fragment key={key}>
                         {/* Main Header */}
                         {item['isHeader'] ?
-                            <li className="menu-title"><span data-key="t-menu">{props.t(item.label)} </span></li>
+                            <li className="menu-title"><span>{item.label} </span></li>
                             : (
                                 (item.subItems ? (
                                     <li className="nav-item">
@@ -97,9 +97,9 @@ const VerticalLayout = (props) => {
                                             data-bs-toggle="collapse"
                                         >
                                             <i className={item.icon}></i>
-                                            <span data-key="t-apps">{props.t(item.label)}</span>
+                                            <span>{item.label}</span>
                                             {item.badgeName ?
-                                                <span className={"badge badge-pill bg-" + item.badgeColor} data-key="t-new">{item.badgeName}</span>
+                                                <span className={"badge badge-pill bg-" + item.badgeColor}>{item.badgeName}</span>
                                             : null}
                                         </Link>
                                         <Collapse
@@ -116,9 +116,9 @@ const VerticalLayout = (props) => {
                                                                     to={subItem.link ? subItem.link : "/#"}
                                                                     className="nav-link"
                                                                 >
-                                                                    {props.t(subItem.label)}
+                                                                    {subItem.label}
                                                                     {subItem.badgeName ?
-                                                                        <span className={"badge badge-pill bg-" + subItem.badgeColor} data-key="t-new">{subItem.badgeName}</span>
+                                                                        <span className={"badge badge-pill bg-" + subItem.badgeColor}>{subItem.badgeName}</span>
                                                                     : null}
                                                                 </Link>
                                                             </li>
@@ -130,9 +130,9 @@ const VerticalLayout = (props) => {
                                                                     to="/#"
                                                                     data-bs-toggle="collapse"
                                                                 > 
-                                                                {props.t(subItem.label)}
+                                                                {subItem.label}
                                                                 {subItem.badgeName ?
-                                                                    <span className={"badge badge-pill bg-" + subItem.badgeColor} data-key="t-new">{subItem.badgeName}</span>
+                                                                    <span className={"badge badge-pill bg-" + subItem.badgeColor}>{subItem.badgeName}</span>
                                                                 : null}
                                                                 </Link>
                                                                 <Collapse className="menu-dropdown" isOpen={subItem.stateVariables} id="sidebarEcommerce">
@@ -146,18 +146,18 @@ const VerticalLayout = (props) => {
                                                                                             <Link
                                                                                                 to={childItem.link ? childItem.link : "/#"}
                                                                                                 className="nav-link">
-                                                                                                {props.t(childItem.label)}
+                                                                                                {childItem.label}
                                                                                             </Link>
                                                                                         </li>
                                                                                         : <li className="nav-item">
                                                                                             <Link to="/#" className="nav-link" onClick={childItem.click} data-bs-toggle="collapse">
-                                                                                                {props.t(childItem.label)}
+                                                                                                {childItem.label}
                                                                                             </Link>
                                                                                             <Collapse className="menu-dropdown" isOpen={childItem.stateVariables} id="sidebaremailTemplates">
                                                                                                 <ul className="nav nav-sm flex-column">
                                                                                                     {childItem.childItems.map((subChildItem, key) => (
                                                                                                         <li className="nav-item" key={key}>
-                                                                                                            <Link to={subChildItem.link} className="nav-link" data-key="t-basic-action">{props.t(subChildItem.label)} </Link>
+                                                                                                            <Link to={subChildItem.link} className="nav-link">{subChildItem.label} </Link>
                                                                                                         </li>
                                                                                                     ))}
                                                                                                 </ul>
@@ -183,9 +183,9 @@ const VerticalLayout = (props) => {
                                         <Link
                                             className="nav-link menu-link"
                                             to={item.link ? item.link : "/#"}>
-                                            <i className={item.icon}></i> <span>{props.t(item.label)}</span>
+                                            <i className={item.icon}></i> <span>{item.label}</span>
                                             {item.badgeName ?
-                                                <span className={"badge badge-pill bg-" + item.badgeColor} data-key="t-new">{item.badgeName}</span>
+                                                <span className={"badge badge-pill bg-" + item.badgeColor}>{item.badgeName}</span>
                                                 : null}
                                         </Link>
                                     </li>
@@ -201,7 +201,7 @@ const VerticalLayout = (props) => {
 
 VerticalLayout.propTypes = {
     location: PropTypes.object,
-    t: PropTypes.any,
+    // t: PropTypes.any,
 };
 
-export default withRouter(withTranslation()(VerticalLayout));
+export default withRouter(VerticalLayout);

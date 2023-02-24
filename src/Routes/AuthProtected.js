@@ -18,10 +18,10 @@ const AuthProtected = (props) => {
 
   useEffect(()=> {
     if(!currentUser && !isLoading && !isError){
-      console.log('lagi loading nih')
+      // console.log('lagi loading nih')
       setloading(true)
     } else {
-      console.log('nggak loading')
+      // console.log('nggak loading')
       setloading(false)
     }
   },[isLoading, currentUser, isError, useAuth])
@@ -33,7 +33,6 @@ const AuthProtected = (props) => {
   }
 
   if (!currentUser && isError && !isLoading) {
-    console.log('redirect to login')
     return (
       <Navigate to={{ pathname: "/login", state: { from: props.location } }} />
     );

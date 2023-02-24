@@ -16,7 +16,7 @@ const Logout = (props) => {
   const handleLogout = async () => {
     try {
       const res = await logoutUser()
-      console.log(res)
+      // console.log(res)
       setUser()
     } catch (error) {
       console.log()

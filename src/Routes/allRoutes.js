@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 //Dashboard
-import Dashboard from "../pages/Dashboard";
+// import Dashboard from "../pages/Dashboard";
 
 //login
 import Login from "../pages/Authentication/Login";
@@ -13,43 +13,19 @@ import Register from "../pages/Authentication/Register";
 // User Profile
 import UserProfileSettings from "../pages/Profile/UserProfileSetting";
 import Error404 from "../pages/Escape/error404";
-import App from "../pages/Apps";
-import Setting from "../pages/Setting";
-import Manual from "../pages/Manual";
-import DosenPembimbing from "../pages/Setting/FormOption/DosenPembimbing";
-import KepalaLab from "../pages/Setting/FormOption/KepalaLab";
-import Laboran from "../pages/Setting/FormOption/Laboran";
-import AlurApproval from "../pages/Setting/AlurApproval";
-import Notifikasi from "../pages/Setting/Notifikasi";
-import UserProfile from "../pages/Profile/UserProfile";
 import DeviceList from "../pages/Device";
 import Message from "../pages/Message";
 
 const authProtectedRoutes = [
   
-  { path: "/dashboard", component: <Dashboard/> },
-  { path: "/app", component: <App/> },
+  // { path: "/dashboard", component: <Dashboard/> },
   { path: "/device", component: <DeviceList/> },
   { path: "/message", component: <Message/> },
-  { path: "/setting", component: <Setting/> },
-  { path: "/manual", component: <Manual/> },
-  { path: "/dosen-pembimbing", component: <DosenPembimbing/> },
-  { path: "/kepala-lab", component: <KepalaLab/> },
-  { path: "/laboran", component: <Laboran/> },
-  { path: "/alur-approval", component: <AlurApproval/> },
-  { path: "/notifikasi", component: <Notifikasi/> },
-  // { path: "/profile", component: <UserProfile/> },
-  // { path: "/index", component: <Dashboard/> },
-
-  //User Profile
   { path: "/profile", component: <UserProfileSettings/> },
-
-  // this route should be at the end of all other routes
-  // eslint-disable-next-line react/display-name
   {
     path: "/",
     exact: true,
-    component: <Navigate to="/dashboard" />
+    component: <Navigate to="/device" />
   },
   { path: "*", component: <Error404 />}
 ];

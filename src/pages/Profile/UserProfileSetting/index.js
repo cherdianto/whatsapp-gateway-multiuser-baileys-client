@@ -14,8 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { projects, document } from '../../../common/data';
 
 const apiUrl = process.env.REACT_APP_ENV === 'development' ? process.env.REACT_APP_API_BASE_DEV : process.env.REACT_APP_API_BASE_PROD
-const jurusan_from_env = process.env.REACT_APP_JURUSAN
-const listJurusan = jurusan_from_env.split(",")
 const whatsappRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
 
 const UserProfileSettings = () => {
@@ -74,7 +72,7 @@ const UserProfileSettings = () => {
                 jurusan: values.jurusan
             }
 
-            console.log(formData)
+            // console.log(formData)
 
             try {
                 const config = {
@@ -84,7 +82,7 @@ const UserProfileSettings = () => {
                 }
                 // #NOTE : tidak bisa pake methode dari apiQuery, nanti returnnnya error
                 const res = await axiosJWT.put(`${apiUrl}/auth/update-profile`, formData, config)
-                console.log(res)
+                // console.log(res)
                 setUser(res.data.user)
                 setError(null)
                 setSuccess({
@@ -92,8 +90,8 @@ const UserProfileSettings = () => {
                     message: res.data.message
                 })
             } catch (error) {
-                console.log('cek error')
-                console.log(error)
+                // console.log('cek error')
+                // console.log(error)
                 setSuccess(null)
                 setError({
                     status: true,
@@ -142,8 +140,8 @@ const UserProfileSettings = () => {
                     message: 'PASSWORD HAS BEEN CHANGED SUCCESSFULY'
                 })
             } catch (error) {
-                console.log('cek error')
-                console.log(error)
+                // console.log('cek error')
+                // console.log(error)
                 setSuccess(null)
                 setError({
                     status: true,
@@ -156,10 +154,10 @@ const UserProfileSettings = () => {
 
     const handleFlatpickr = (date) => {
         changeProfileValidation.setFieldValue("tanggalLahir", date[0])
-        console.log(changeProfileValidation.values.tanggalLahir)
+        // console.log(changeProfileValidation.values.tanggalLahir)
     }
 
-    document.title = "Profile Settings | Velzon - React Admin & Dashboard Template";
+    document.title = "Profile Settings | Wabot - Whatsapp Gateway Multiuser";
 
     return (
         <React.Fragment>

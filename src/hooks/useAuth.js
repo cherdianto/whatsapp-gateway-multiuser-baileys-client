@@ -13,17 +13,17 @@ const useAuth = ({ redirect }) => {
 
     const getUser = async () => {
         setIsLoading(true)
-        console.log('useAuth get user')
+        // console.log('useAuth get user')
         try {
             const res = await fetchUser(user?.accessToken)
-            console.log(res)
+            // console.log(res)
             setCurrentUser(res)
             setIsError(false)
             setUser(res)
             setIsLoading(false)
         } catch (error) {
-            console.log('error get user')
-            console.log(error)
+            // console.log('error get user')
+            // console.log(error)
             setUser()
             setIsError(true)
             setCurrentUser(null)
